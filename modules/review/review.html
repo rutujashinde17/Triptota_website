@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Reviews &amp; Ratings · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="./review.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    .review-page {
+      margin-top: calc(var(--nav-height) + 15px);
+      margin-bottom: 50px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <div class="review-page">
+    <!-- HEADER -->
+    <div class="review-header">
+      <div>
+        <p class="small-title">TRAVEL EXPERIENCE</p>
+        <h1>Share your experience</h1>
+        <p class="subtitle">Tell us about your trip and help fellow travellers find their next destination.</p>
+      </div>
+      <div class="header-icon">★</div>
+    </div>
+
+    <!-- REVIEW CARD -->
+    <div class="review-card">
+      <div class="card-title">
+        <div class="title-icon">★</div>
+        <div>
+          <h2>Add Review &amp; Rating</h2>
+          <p>Your feedback means the world to us.</p>
+        </div>
+      </div>
+
+      <!-- SUCCESS INFO -->
+      <div class="info-box" id="verifyBanner">
+        <span class="info-icon">✓</span>
+        <div>
+          <strong id="verifyTitle">Verified Traveller Review</strong>
+          <p id="verifyDesc">Verifying your account and loading your completed trips...</p>
+        </div>
+      </div>
+
+      <!-- COMPLETED TRIPS ELIGIBLE FOR REVIEW -->
+      <div id="completedTripsBox" class="completed-trips-box" style="display:none;"></div>
+
+      <!-- EMPTY COMPLETED TRIPS NOTICE -->
+      <div id="noTripsBox" class="no-trips-box" style="display:none;">
+        <strong>No completed trips eligible for review yet</strong>
+        <p>Only trips you have personally completed appear here so fellow travellers see genuine feedback.</p>
+        <a href="../profile/profile.html#bookings" class="verify-link-btn">View My Bookings →</a>
+      </div>
+
+      <!-- FORM -->
+      <form id="reviewForm">
+        <!-- NAME + EMAIL -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Verified Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Verified Email</label>
+            <input type="email" id="email" name="email" placeholder="Verified account email" required>
+          </div>
+        </div>
+
+        <!-- TRIP DROPDOWN (Populated dynamically from user's Completed trips ONLY) -->
+        <div class="form-group">
+          <label for="trip">Select Completed Trip</label>
+          <select id="trip" name="trip" required>
+            <option value="">-- Select your completed trip --</option>
+          </select>
+        </div>
+
+        <!-- USER VERIFICATION -->
+        <div class="verify-check-box" id="verifyCheckWrap">
+          <label class="verify-check-label" for="verifyTraveller">
+            <input type="checkbox" id="verifyTraveller" name="verifyTraveller" required>
+            <span id="verifyCheckText">I verify that I am the signed-in traveller and completed the selected trip above.</span>
+          </label>
+        </div>
+
+        <!-- RATING -->
+        <div class="rating-section">
+          <label>Your Rating</label>
+          <div class="rating-container">
+            <div class="stars" id="stars">
+              <span class="star" data-rating="1">★</span>
+              <span class="star" data-rating="2">★</span>
+              <span class="star" data-rating="3">★</span>
+              <span class="star" data-rating="4">★</span>
+              <span class="star" data-rating="5">★</span>
+            </div>
+            <span id="ratingText">Select your rating</span>
+          </div>
+          <input type="hidden" id="rating" name="rating" value="5">
+        </div>
+
+        <!-- REVIEW -->
+        <div class="form-group">
+          <label for="review">Your Review</label>
+          <textarea id="review" name="review" rows="6" maxlength="500" placeholder="Write about your travel experience, hotel quality, flight comfort, or bus ride..." required></textarea>
+          <div class="character-count"><span id="charCount">0</span>/500</div>
+        </div>
+
+        <!-- BUTTON -->
+        <button type="submit" id="submitBtn">
+          <span id="buttonText">Submit Review</span>
+          <span id="loader" class="loader" style="display:none;"></span>
+        </button>
+      </form>
+    </div>
+
+    <p class="footer-text">
+      Thank you for sharing your journey with TripTora ❤️
+    </p>
+  </div>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../../js/common.js"></script>
+  <script src="./review.js"></script>
+</body>
+</html>

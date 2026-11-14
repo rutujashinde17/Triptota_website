@@ -1,0 +1,954 @@
+/* =====================================================
+   GOOGLE FONT
+===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+
+:root {
+
+    --maroon: #922b2b;
+    --pink: #df3270;
+    --orange: #ff914d;
+
+    --dark: #260b08;
+    --text: #211638;
+
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family: 'Poppins', sans-serif;
+
+    color: var(--text);
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+
+    background: #fff7f1;
+
+    padding-top: var(--nav-height, 75px);
+
+}
+
+
+
+/* =====================================================
+   MAIN ENQUIRY BACKGROUND
+===================================================== */
+
+.enquiry-container {
+
+    width: 100%;
+
+    min-height: calc(100vh - 75px);
+
+    max-width: none;
+
+    margin: 0;
+
+    padding: 70px 6%;
+
+    display: grid;
+
+    grid-template-columns: 1fr 0.85fr;
+
+    gap: 55px;
+
+    align-items: center;
+
+
+    /* ⭐ FULL BACKGROUND IMAGE ⭐ */
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.12),
+            rgba(255, 247, 241, 0.18)
+        ),
+        url("../../assets/images/enquiry.jpeg");
+
+
+    background-size: cover;
+
+    background-position: center center;
+
+    background-repeat: no-repeat;
+
+}
+
+
+
+/* =====================================================
+   LEFT SECTION
+===================================================== */
+
+.left-section {
+
+    width: 100%;
+
+    max-width: 720px;
+
+    color: #171333;
+
+}
+
+
+.small-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    color: #df477b;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+}
+
+
+.small-heading span {
+
+    width: 45px;
+
+    height: 2px;
+
+    background: #df477b;
+
+}
+
+
+.left-section h1 {
+
+    font-size: 78px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    color: #14122e;
+
+    margin-top: 12px;
+
+}
+
+
+.subtitle {
+
+    color: #4f4960;
+
+    font-size: 19px;
+
+    font-weight: 500;
+
+    margin-top: 18px;
+
+    margin-bottom: 35px;
+
+}
+
+
+
+/* =====================================================
+   SUPPORT CARD
+===================================================== */
+
+.support-card {
+
+    width: 100%;
+
+    max-width: 620px;
+
+    min-height: 145px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding: 25px 30px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.82);
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(255, 255, 255, 0.7);
+
+    box-shadow:
+        0 10px 35px rgba(70, 35, 35, 0.10);
+
+}
+
+
+.support-icon {
+
+    width: 55px;
+
+    height: 55px;
+
+    min-width: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7a45,
+            #df3270
+        );
+
+    color: white;
+
+    font-size: 24px;
+
+}
+
+
+.support-content h2 {
+
+    font-size: 25px;
+
+    line-height: 1.25;
+
+    color: #151333;
+
+    margin-bottom: 8px;
+
+}
+
+
+.support-content p {
+
+    color: #716a75;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    max-width: 480px;
+
+}
+
+
+
+/* =====================================================
+   SMALL CARDS
+===================================================== */
+
+.small-cards {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+
+    max-width: 620px;
+
+    margin-top: 18px;
+
+}
+
+
+.small-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 17px 20px;
+
+    min-height: 75px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.78);
+
+    backdrop-filter: blur(7px);
+
+    -webkit-backdrop-filter: blur(7px);
+
+    border: 1px solid rgba(255, 255, 255, 0.7);
+
+}
+
+
+.small-card-icon {
+
+    width: 35px;
+
+    height: 35px;
+
+    min-width: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fce7ef;
+
+    color: #d52976;
+
+    font-size: 14px;
+
+}
+
+
+.small-card h3 {
+
+    font-size: 11px;
+
+    color: #3d3540;
+
+    margin-bottom: 2px;
+
+}
+
+
+.small-card p {
+
+    font-size: 9px;
+
+    color: #88818a;
+
+}
+
+
+
+/* =====================================================
+   BOTTOM TEXT
+===================================================== */
+
+.bottom-text {
+
+    margin-top: 15px;
+
+    color: #5d4750;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+.bottom-text i {
+
+    color: #df3270;
+
+    margin-right: 5px;
+
+}
+
+
+
+/* =====================================================
+   RIGHT FORM CARD
+===================================================== */
+
+.right-section {
+
+    width: 100%;
+
+    max-width: 580px;
+
+    justify-self: end;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    padding: 38px 40px 30px;
+
+    border-radius: 25px;
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+
+    box-shadow:
+        0 15px 45px rgba(60, 30, 30, 0.13);
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
+
+}
+
+
+
+/* =====================================================
+   FORM HEADING
+===================================================== */
+
+.form-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+
+}
+
+
+.form-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    min-width: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fce7ef;
+
+    color: #d52976;
+
+    font-size: 25px;
+
+    border-radius: 17px;
+
+}
+
+
+.form-heading h2 {
+
+    color: #922b2b;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+}
+
+
+.form-heading p {
+
+    color: #776b7b;
+
+    font-size: 11px;
+
+    margin-top: 4px;
+
+    line-height: 1.5;
+
+}
+
+
+
+/* =====================================================
+   FORM GROUP
+===================================================== */
+
+.form-group {
+
+    margin-bottom: 20px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+    color: #922b2b;
+
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #eaded9;
+
+    border-radius: 11px;
+
+    background: rgba(255, 250, 247, 0.9);
+
+    font-size: 12px;
+
+    color: #321052;
+
+    outline: none;
+
+    transition: 0.3s ease;
+
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    border-color: #d83b79;
+
+    box-shadow:
+        0 0 0 3px rgba(216, 59, 121, 0.08);
+
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+
+    color: #aaa1aa;
+
+}
+
+
+.form-group textarea {
+
+    height: 95px;
+
+    resize: vertical;
+
+}
+
+
+
+/* =====================================================
+   OTHER SUBJECT
+===================================================== */
+
+#otherSubjectGroup {
+
+    animation: fadeInGroup 0.3s ease;
+
+}
+
+
+@keyframes fadeInGroup {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(-6px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SUBMIT BUTTON
+===================================================== */
+
+.submit-btn {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #ff603d,
+            #e91e79
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+
+}
+
+
+.submit-btn i {
+
+    margin-right: 7px;
+
+}
+
+
+.submit-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 20px rgba(233, 30, 121, 0.25);
+
+}
+
+
+.submit-btn:disabled {
+
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+
+/* =====================================================
+   BACK HOME
+===================================================== */
+
+.back-home {
+
+    display: block;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    color: #321052;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    margin-top: 16px;
+
+    transition: 0.3s;
+
+}
+
+
+.back-home:hover {
+
+    color: #df3270;
+
+}
+
+
+.back-home i {
+
+    margin-right: 5px;
+
+}
+
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1050px) {
+
+    .enquiry-container {
+
+        grid-template-columns: 1fr 0.9fr;
+
+        gap: 30px;
+
+        padding: 50px 4%;
+
+    }
+
+
+    .left-section h1 {
+
+        font-size: 60px;
+
+    }
+
+
+    .subtitle {
+
+        font-size: 16px;
+
+    }
+
+
+    .right-section {
+
+        padding: 30px 28px;
+
+    }
+
+
+    .form-heading h2 {
+
+        font-size: 24px;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   MOBILE / TABLET
+===================================================== */
+
+@media (max-width: 800px) {
+
+    body {
+
+        padding-top: var(--nav-height, 75px);
+
+    }
+
+
+    .enquiry-container {
+
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+
+        padding: 45px 20px;
+
+        gap: 30px;
+
+
+        /* Mobile वरही full background */
+
+        background-position: center center;
+
+    }
+
+
+    .left-section {
+
+        max-width: 100%;
+
+    }
+
+
+    .left-section h1 {
+
+        font-size: 50px;
+
+    }
+
+
+    .subtitle {
+
+        font-size: 16px;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .support-card {
+
+        max-width: 100%;
+
+    }
+
+
+    .small-cards {
+
+        max-width: 100%;
+
+    }
+
+
+    .right-section {
+
+        max-width: 100%;
+
+        justify-self: stretch;
+
+        padding: 28px 22px;
+
+        border-radius: 20px;
+
+    }
+
+
+    .form-heading h2 {
+
+        font-size: 23px;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .enquiry-container {
+
+        padding: 35px 15px;
+
+    }
+
+
+    .left-section h1 {
+
+        font-size: 42px;
+
+    }
+
+
+    .subtitle {
+
+        font-size: 14px;
+
+    }
+
+
+    .support-card {
+
+        padding: 20px;
+
+        gap: 14px;
+
+    }
+
+
+    .support-icon {
+
+        width: 45px;
+
+        height: 45px;
+
+        min-width: 45px;
+
+        font-size: 19px;
+
+    }
+
+
+    .support-content h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .support-content p {
+
+        font-size: 10px;
+
+    }
+
+
+    .small-cards {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .right-section {
+
+        padding: 23px 17px;
+
+    }
+
+
+    .form-heading {
+
+        gap: 12px;
+
+    }
+
+
+    .form-icon {
+
+        width: 48px;
+
+        height: 48px;
+
+        min-width: 48px;
+
+        font-size: 20px;
+
+    }
+
+
+    .form-heading h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .form-heading p {
+
+        font-size: 10px;
+
+    }
+
+}

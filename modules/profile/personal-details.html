@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Personal Details · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/common.css">
+  <style>
+    .pd-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      box-shadow: var(--shadow-sm);
+      max-width: 860px;
+      margin: 30px auto 60px;
+    }
+    .pd-head {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .pd-head h2 {
+      font-size: 24px;
+      color: var(--maroon);
+    }
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--bean);
+      margin-bottom: 6px;
+    }
+    .field input, .field select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      background: #fff;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .field input:focus, .field select:focus {
+      border-color: var(--orange);
+    }
+    .back-nav {
+      margin-bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--orange);
+      font-weight: 600;
+      font-size: 13.5px;
+    }
+
+    @media (max-width: 640px) {
+      .pd-card { padding: 24px 20px; }
+      .grid2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <main class="page-wrapper" style="padding-top: var(--nav-height);">
+    <div class="container">
+      <div class="pd-card">
+        <a href="profile.html" class="back-nav">← Back to Profile Overview</a>
+        
+        <div class="pd-head">
+          <div>
+            <h2>Personal Information</h2>
+            <p style="color:var(--text-muted); font-size:13.5px;">Manage your official name, contact details and traveller documentation.</p>
+          </div>
+          <span class="badge badge-green">Active Account</span>
+        </div>
+
+        <form id="profileForm">
+          <div class="grid2">
+            <div class="field">
+              <label for="pFirst">First Name</label>
+              <input type="text" id="pFirst" required>
+            </div>
+            <div class="field">
+              <label for="pLast">Last Name</label>
+              <input type="text" id="pLast" required>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="pEmailInput">Email Address</label>
+              <input type="email" id="pEmailInput" required>
+            </div>
+            <div class="field">
+              <label for="pPhoneInput">Mobile Contact</label>
+              <input type="tel" id="pPhoneInput" placeholder="+91 98765 43210" required>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="pGender">Gender</label>
+              <select id="pGender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other / Non-binary</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="pDob">Date of Birth</label>
+              <input type="date" id="pDob" value="1998-05-14">
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="pDoc">Passport / Government ID Number</label>
+              <input type="text" id="pDoc" placeholder="e.g. Z9876543">
+            </div>
+            <div class="field">
+              <label for="pCity">City &amp; State</label>
+              <input type="text" id="pCity" placeholder="Bengaluru, Karnataka">
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px; border-top:1px solid var(--border-light); padding-top:20px;">
+            <a href="profile.html" class="btn btn-outline">Cancel</a>
+            <button type="submit" class="btn btn-primary btn-lg">Save Personal Details</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../../js/common.js"></script>
+  <script>
+    (function () {
+      let user = null;
+      try {
+        user = JSON.parse(localStorage.getItem('triptoraUser'));
+      } catch (e) {}
+
+      if (user) {
+        const parts = (user.username || 'Maya Ellis').split(' ');
+        document.getElementById('pFirst').value = parts[0] || 'Explorer';
+        document.getElementById('pLast').value = parts.slice(1).join(' ') || 'User';
+        document.getElementById('pEmailInput').value = user.email || 'explorer@triptora.com';
+        document.getElementById('pPhoneInput').value = user.phone || '+91 98765 43210';
+        if (user.doc) document.getElementById('pDoc').value = user.doc;
+        if (user.city) document.getElementById('pCity').value = user.city;
+      } else {
+        document.getElementById('pFirst').value = 'Maya';
+        document.getElementById('pLast').value = 'Ellis';
+        document.getElementById('pEmailInput').value = 'maya.ellis@example.com';
+        document.getElementById('pPhoneInput').value = '+91 800 123 4567';
+      }
+
+      document.getElementById('profileForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const first = document.getElementById('pFirst').value.trim();
+        const last = document.getElementById('pLast').value.trim();
+        const email = document.getElementById('pEmailInput').value.trim();
+        const phone = document.getElementById('pPhoneInput').value.trim();
+        const doc = document.getElementById('pDoc').value.trim();
+        const city = document.getElementById('pCity').value.trim();
+
+        const updated = {
+          ...(user || {}),
+          accountEmail: (user && (user.accountEmail || user.email)) || email,
+          username: `${first} ${last}`.trim(),
+          email: email,
+          phone: phone,
+          doc: doc,
+          city: city,
+          updated: new Date().toISOString()
+        };
+
+        localStorage.setItem('triptoraUser', JSON.stringify(updated));
+
+        if (window.ttToast) {
+          window.ttToast('✓ Personal details updated successfully!');
+        }
+
+        setTimeout(() => {
+          window.location.href = 'profile.html';
+        }, 800);
+      });
+    })();
+  </script>
+</body>
+</html>
+

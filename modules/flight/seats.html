@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose Your Seat · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <main class="wrap page" style="margin-top: calc(var(--nav-height) + 10px);">
+    <p class="crumb">Step 2 / Personalise your flight</p>
+    <h1>A little more comfort</h1>
+    <p class="muted">Choose your seat, meal and baggage before adding passenger details.</p>
+    <div class="trip" id="trip"></div>
+    <div class="cols cols--seat">
+      <section class="card pad">
+        <h2>Choose your seats</h2>
+        <p class="muted" id="cabin"></p>
+        <div class="legend">
+          <span><i class="sw"></i>Free</span>
+          <span><i class="sw leg"></i>Legroom +₹600</span>
+          <span><i class="sw bk"></i>Booked</span>
+          <span><i class="sw sel"></i>Selected</span>
+        </div>
+        <div class="cabin">
+          <p class="muted">✈ Cockpit · Front</p>
+          <div class="map" id="map"></div>
+          <p class="muted">⋮ Cabin continues · aisle between C and D</p>
+        </div>
+        <p class="note">Select one seat for each passenger (up to 6). Row 10 offers extra legroom. Booked seats cannot be selected.</p>
+      </section>
+      <aside class="card pad side">
+        <h2>Your seats &amp; add-ons</h2>
+        <div class="pick" id="pick"></div>
+        <label for="meal">Meal preference</label>
+        <select id="meal" class="in">
+          <option value="">No meal selected</option>
+          <option value="Veg Sandwich|350">Veg Sandwich · +₹350</option>
+          <option value="Paneer Wrap|400">Paneer Wrap · +₹400</option>
+          <option value="Poha Bowl|250">Poha Bowl · +₹250</option>
+        </select>
+        <label for="bag">Extra baggage</label>
+        <select id="bag" class="in">
+          <option value="">Add extra baggage</option>
+          <option value="+5kg|750">+5kg · ₹750</option>
+          <option value="+10kg|1400">+10kg · ₹1,400</option>
+        </select>
+        <p class="note" id="bagNote"></p>
+        <hr>
+        <div id="lines"></div>
+        <hr>
+        <div class="total">
+          <span>Subtotal</span>
+          <span id="sub"></span>
+        </div>
+        <p class="err" id="serr"></p>
+        <a class="btn btn--primary btn--block" href="passenger.html">Next: Passenger Details</a>
+        <p class="note" id="cab2"></p>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../../js/common.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/seats.js"></script>
+</body>
+</html>

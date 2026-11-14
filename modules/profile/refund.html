@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Refunds & Cancellations · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/common.css">
+  <style>
+    .rf-wrap {
+      max-width: 960px;
+      margin: 30px auto 60px;
+    }
+    .rf-head {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .rf-head h2 {
+      font-size: 26px;
+      color: var(--maroon);
+    }
+    .rf-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+    .rf-card h3 {
+      font-size: 18px;
+      color: var(--maroon);
+      margin-bottom: 12px;
+    }
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      margin: 24px 0 16px;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 10%;
+      right: 10%;
+      height: 3px;
+      background: var(--border-color);
+      z-index: 1;
+    }
+    .tl-step {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      flex: 1;
+    }
+    .tl-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--border-color);
+      margin: 0 auto 8px;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .tl-step.done .tl-dot {
+      border-color: var(--green);
+      background: var(--green);
+      color: #fff;
+    }
+    .tl-step.active .tl-dot {
+      border-color: var(--orange);
+      background: #fff;
+      color: var(--orange);
+    }
+    .tl-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .tl-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .rf-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      outline: none;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--orange);
+    }
+    .back-nav {
+      margin-bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--orange);
+      font-weight: 600;
+      font-size: 13.5px;
+    }
+
+    @media (max-width: 640px) {
+      .rf-form-grid { grid-template-columns: 1fr; }
+      .timeline { flex-direction: column; gap: 16px; }
+      .timeline::before { display: none; }
+      .tl-step { display: flex; align-items: center; gap: 12px; text-align: left; }
+      .tl-dot { margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <main class="page-wrapper" style="padding-top: var(--nav-height);">
+    <div class="container">
+      <div class="rf-wrap">
+        <a href="profile.html" class="back-nav">← Back to Profile Overview</a>
+
+        <div class="rf-head">
+          <div>
+            <h2>Refunds &amp; Cancellation Claims</h2>
+            <p style="color:var(--text-muted); font-size:13.5px;">Track instant status on ticket refund processing and submit new cancellation requests.</p>
+          </div>
+          <span class="badge badge-green">24/7 Fast Refund Desk</span>
+        </div>
+
+        <!-- ACTIVE REFUND STATUS CARD -->
+        <div class="rf-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div>
+              <span class="badge badge-yellow" style="margin-bottom:4px;">In Progress</span>
+              <h3 style="margin-top:4px;">Refund Claim #RF-89241</h3>
+              <p style="font-size:13px; color:var(--text-muted);">Associated with Flight PNR: <strong>6E7841</strong> (Bengaluru → Goa)</p>
+            </div>
+            <div style="text-align:right;">
+              <small style="color:var(--text-muted);">Eligible Refund Amount</small>
+              <div style="font-size:24px; font-weight:700; color:var(--maroon);">₹3,850</div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="tl-step done">
+              <div class="tl-dot">✓</div>
+              <div class="tl-label">Claim Submitted</div>
+              <div class="tl-sub">Nov 07, 10:30 AM</div>
+            </div>
+            <div class="tl-step done">
+              <div class="tl-dot">✓</div>
+              <div class="tl-label">Airline Approved</div>
+              <div class="tl-sub">Nov 08, 02:15 PM</div>
+            </div>
+            <div class="tl-step active">
+              <div class="tl-dot">●</div>
+              <div class="tl-label">Bank Transfer</div>
+              <div class="tl-sub">Expected in 24 hrs</div>
+            </div>
+            <div class="tl-step">
+              <div class="tl-dot">4</div>
+              <div class="tl-label">Amount Credited</div>
+              <div class="tl-sub">Original source</div>
+            </div>
+          </div>
+
+          <div style="background:var(--cream); padding:12px 16px; border-radius:10px; font-size:12.5px; color:var(--bean); border:1px solid var(--peach);">
+            ℹ️ <strong>Status Update:</strong> Your refund of ₹3,850 has been approved by IndiGo Airlines. It has been routed to your UPI/Card account ending in ••8291.
+          </div>
+        </div>
+
+        <!-- NEW REFUND REQUEST FORM -->
+        <div class="rf-card">
+          <h3>Request New Cancellation / Refund</h3>
+          <p style="color:var(--text-muted); font-size:13px; margin-bottom:20px;">Enter your booking reference to calculate eligible refund and initiate bank settlement.</p>
+
+          <form id="refundForm">
+            <div class="rf-form-grid">
+              <div class="field">
+                <label for="rfPnr">Booking PNR / Ticket Number</label>
+                <input type="text" id="rfPnr" placeholder="e.g. 6E7841 or ZB9923" required>
+              </div>
+              <div class="field">
+                <label for="rfReason">Reason for Cancellation</label>
+                <select id="rfReason">
+                  <option value="Personal plan change">Personal plan change</option>
+                  <option value="Medical emergency">Medical emergency</option>
+                  <option value="Flight/Bus schedule alteration">Flight/Bus schedule alteration</option>
+                  <option value="Duplicate booking">Duplicate booking</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="rf-form-grid">
+              <div class="field">
+                <label for="rfUpi">Preferred Refund Account (UPI ID or Bank Account)</label>
+                <input type="text" id="rfUpi" placeholder="e.g. yourname@okhdfcbank" required>
+              </div>
+              <div class="field">
+                <label for="rfMobile">Registered Contact Mobile</label>
+                <input type="tel" id="rfMobile" placeholder="+91 98765 43210" required>
+              </div>
+            </div>
+
+            <div class="field" style="margin-bottom:18px;">
+              <label for="rfNotes">Additional Notes (Optional)</label>
+              <textarea id="rfNotes" rows="3" placeholder="Provide any additional comments or flight confirmation details..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg">Submit Cancellation &amp; Process Refund →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../../js/common.js"></script>
+  <script>
+    (function () {
+      // Check query param for pre-filled PNR
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get('ref');
+      if (ref) {
+        document.getElementById('rfPnr').value = ref;
+      }
+
+      document.getElementById('refundForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const pnr = document.getElementById('rfPnr').value.trim();
+        const upi = document.getElementById('rfUpi').value.trim();
+
+        if (window.ttToast) {
+          window.ttToast('✓ Refund claim registered for PNR ' + pnr + '. Credit expected in 24-48 hours.');
+        }
+
+        document.getElementById('refundForm').reset();
+      });
+    })();
+  </script>
+</body>
+</html>
+

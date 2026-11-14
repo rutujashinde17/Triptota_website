@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/common.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    .auth-page {
+      min-height: calc(100vh - var(--nav-height) - 100px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 960px;
+      background: #fff;
+      border: 1px solid var(--peach);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      overflow: hidden;
+    }
+    .auth-banner {
+      background: linear-gradient(135deg, var(--maroon), var(--orange));
+      color: #fff;
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .auth-banner::after {
+      content: '';
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 140px;
+      height: 140px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+    .banner-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .banner-logo img {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+    }
+    .banner-logo span {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .banner-quote h2 {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .banner-quote p {
+      font-size: 14px;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    .banner-foot {
+      font-size: 11px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      opacity: 0.8;
+      text-transform: uppercase;
+    }
+    .auth-form-wrap {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .auth-head {
+      margin-bottom: 20px;
+    }
+    .auth-head small {
+      color: var(--orange);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .auth-head h3 {
+      font-size: 24px;
+      color: var(--maroon);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--bean);
+      margin-bottom: 4px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      background: #fafafa;
+      transition: border 0.2s;
+    }
+    .form-group input:focus {
+      border-color: var(--orange);
+      background: #fff;
+      outline: none;
+    }
+    .form-group input.bad {
+      border-color: var(--red);
+    }
+    .form-err {
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 500;
+      display: block;
+      margin-top: 3px;
+      min-height: 15px;
+    }
+    .otp-row {
+      display: flex;
+      gap: 8px;
+    }
+    .otp-row input {
+      flex: 1;
+    }
+    .btn-otp, .btn-verify {
+      background: var(--yellow);
+      color: var(--maroon);
+      border: 0;
+      font-weight: 600;
+      font-size: 12.5px;
+      padding: 0 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: 0.2s;
+    }
+    .btn-otp:hover:not(:disabled), .btn-verify:hover:not(:disabled) {
+      background: var(--orange);
+      color: #fff;
+    }
+    .btn-otp:disabled, .btn-verify:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+    .btn-verify.verified {
+      background: #2e7d4f;
+      color: #fff;
+    }
+    .otp-status {
+      display: none;
+      margin-bottom: 14px;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+    .otp-status.sent {
+      display: block;
+      background: var(--peach-soft);
+      border: 1px solid var(--peach);
+      color: var(--maroon);
+    }
+    .otp-status.verified {
+      display: block;
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      color: #1b5e20;
+    }
+    .otp-status.warn {
+      display: block;
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      color: #7a4f01;
+    }
+    .password-step {
+      padding: 12px 14px 2px;
+      border: 1px dashed var(--peach);
+      border-radius: var(--radius-sm);
+      background: #fffaf7;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .password-step.verified {
+      background: #f4fbf5;
+      border-color: #a5d6a7;
+    }
+    .password-step-hint {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--bean);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .password-step.verified .password-step-hint {
+      color: #1b5e20;
+    }
+    .switch-link {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+    .switch-link a {
+      color: var(--orange);
+      font-weight: 600;
+    }
+    @media (max-width: 768px) {
+      .auth-card {
+        grid-template-columns: 1fr;
+      }
+      .auth-banner {
+        display: none;
+      }
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <main class="page-wrapper">
+    <div class="auth-page">
+      <div class="auth-card">
+        <div class="auth-banner">
+          <div class="banner-logo">
+            <img src="../assets/images/logo.jpeg" alt="TripTora" onerror="this.src='../assets/images/logo.png'">
+            <span>TripTora</span>
+          </div>
+          <div class="banner-quote">
+            <h2>Your next journey begins right here.</h2>
+            <p>Sign up now to explore new destinations, get instant notifications on price drops, and keep your tickets handy.</p>
+          </div>
+          <div class="banner-foot">Discover · Dream · Depart</div>
+        </div>
+
+        <div class="auth-form-wrap">
+          <div class="auth-head">
+            <small>Fast & Secure Registration</small>
+            <h3>Create your TripTora Account</h3>
+          </div>
+
+          <form id="regForm" novalidate>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="rUser">First Name</label>
+                <input type="text" id="rUser" placeholder="e.g. Rahul" required>
+                <small class="form-err" id="rUserErr"></small>
+              </div>
+              <div class="form-group">
+                <label for="rSur">Last Name</label>
+                <input type="text" id="rSur" placeholder="e.g. Sharma" required>
+                <small class="form-err" id="rSurErr"></small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="rPhone">Mobile Number</label>
+              <input type="tel" id="rPhone" maxlength="15" inputmode="tel" placeholder="10-digit mobile number" required autocomplete="tel">
+              <small class="form-err" id="rPhoneErr"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="rEmail">Gmail / Email Address</label>
+              <div class="otp-row">
+                <input type="email" id="rEmail" placeholder="you@gmail.com" required autocomplete="email">
+                <button type="button" class="btn-otp" id="sendOtp">➤ Send OTP</button>
+              </div>
+              <small class="form-err" id="rEmailErr"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="rOtp">Gmail Verification OTP</label>
+              <div class="otp-row">
+                <input type="text" id="rOtp" maxlength="6" inputmode="numeric" placeholder="Enter 6-digit OTP">
+                <button type="button" class="btn-verify" id="verifyOtp">Verify OTP</button>
+              </div>
+              <small class="form-err" id="rOtpErr"></small>
+            </div>
+
+            <div class="otp-status" id="otpStatusBox" role="status" aria-live="polite"></div>
+
+            <div class="password-step" id="passwordStepWrap">
+              <div class="password-step-hint" id="passwordStepHint">
+                🔑 Set your account password (verify Gmail OTP above before submitting)
+              </div>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="rPass">Set Password</label>
+                  <input type="password" id="rPass" maxlength="64" placeholder="Min. 6 chars (letter + number)" required autocomplete="new-password">
+                  <small class="form-err" id="rPassErr"></small>
+                </div>
+                <div class="form-group">
+                  <label for="rConf">Confirm Password</label>
+                  <input type="password" id="rConf" maxlength="64" placeholder="Repeat password" required autocomplete="new-password">
+                  <small class="form-err" id="rConfErr"></small>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" id="regSubmitBtn" class="btn btn-primary btn-block btn-lg" style="margin-top: 8px;">
+              Create My Account →
+            </button>
+
+            <p class="switch-link">
+              Already have an account? <a href="login.html">Sign in here</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>
+

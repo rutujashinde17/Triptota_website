@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Destination Checkout · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="../flight/css/styles.css">
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <main class="wrap page" style="margin-top: calc(var(--nav-height) + 14px);">
+    <div id="checkoutView">
+      <p class="crumb">Holiday Checkout / Secure Payment</p>
+      <h1>Complete your holiday booking</h1>
+      <p class="muted" id="lead"></p>
+      <div class="trip" id="trip"></div>
+
+      <div class="cols">
+        <section class="card pad">
+          <h2>Choose how to pay</h2>
+          <div class="tabs" role="tablist">
+            <button class="tab on" data-m="upi" role="tab" type="button" aria-selected="true"><i></i> UPI</button>
+            <button class="tab" data-m="card" role="tab" type="button" aria-selected="false"><i></i> Card</button>
+          </div>
+          <hr>
+
+          <div id="card" hidden>
+            <h2>Credit or debit card</h2>
+            <div class="field">
+              <label for="cn">Card no.</label>
+              <input id="cn" inputmode="numeric" autocomplete="cc-number" placeholder="0000 0000 0000 0000" maxlength="19">
+              <small class="err"></small>
+            </div>
+            <div class="grid2" style="margin-top:12px">
+              <div class="field">
+                <label for="ce">Expiry</label>
+                <input id="ce" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7">
+                <small class="err"></small>
+              </div>
+              <div class="field">
+                <label for="cv">CVV</label>
+                <input id="cv" type="password" inputmode="numeric" maxlength="3" placeholder="•••">
+                <small class="hint">3 digits on back of card</small>
+                <small class="err"></small>
+              </div>
+            </div>
+            <div class="field" style="margin-top:12px">
+              <label for="cname">Name on card</label>
+              <input id="cname" autocomplete="cc-name" placeholder="As printed on card">
+              <small class="err"></small>
+            </div>
+            <label class="chk"><input type="checkbox"> Save card securely for future bookings</label>
+            <p class="note">Card details are encrypted. Your CVV is never stored.</p>
+          </div>
+
+          <div id="upi">
+            <h2>Pay with UPI</h2>
+            <p>Scan the QR with your preferred UPI app or enter UPI ID below.</p>
+            <div class="qr" id="qr"></div>
+            <p class="note center">Static QR representation · instant verification</p>
+            <p class="amt" id="amt"></p>
+            <div class="grid2">
+              <button class="btn app" data-a="GPay" type="button">GPay</button>
+              <button class="btn app" data-a="PhonePe" type="button">PhonePe</button>
+            </div>
+            <div class="field" style="margin-top:12px">
+              <label for="uid">Or enter your UPI ID</label>
+              <input id="uid" placeholder="yourname@bank" autocapitalize="off">
+              <small class="err"></small>
+            </div>
+            <p class="note" id="upiNote"></p>
+          </div>
+
+          <button class="btn btn--primary btn--block" id="pay" type="button"></button>
+          <hr>
+          <div class="pills"><span>✓ Secure payment</span><span>256-bit SSL</span><span>PCI-DSS</span></div>
+          <p class="note">By paying, you agree to the holiday package cancellation policy and booking terms.</p>
+        </section>
+
+        <div class="side">
+          <aside class="card pad">
+            <h2>Fare summary</h2>
+            <div id="sumA"></div>
+            <div id="cp"></div>
+            <div id="sumB"></div>
+          </aside>
+          <aside class="card pad">
+            <h2>Package Details</h2>
+            <div id="pkgInfo"></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div id="confirmView" hidden>
+      <section class="banner">
+        <span class="tick">✓</span>
+        <h1>Holiday Booking Confirmed!</h1>
+        <p id="cMsg"></p>
+        <p class="pnr">Booking Reference: <span id="cPnr"></span> <button class="link" id="copyPnr" type="button">⧉ Copy</button></p>
+      </section>
+      <div class="cols">
+        <div>
+          <section class="card pad">
+            <h2>Your holiday package</h2>
+            <p class="big" id="cTitle"></p>
+            <p class="muted" id="cMeta"></p>
+            <hr>
+            <div id="cTimeline"></div>
+          </section>
+        </div>
+        <div class="side">
+          <aside class="card pad">
+            <h2>Next steps</h2>
+            <a class="btn btn--primary btn--block" href="../profile/profile.html#bookings">View in My Bookings</a>
+            <button class="btn btn--block" id="printBtn" type="button">Print Voucher</button>
+            <a class="btn btn--block" href="../packages/packages.html">Explore More Packages</a>
+          </aside>
+          <aside class="card pad">
+            <h2>Payment receipt</h2>
+            <div id="cReceipt"></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../../js/common.js"></script>
+  <script src="payment.js"></script>
+</body>
+</html>

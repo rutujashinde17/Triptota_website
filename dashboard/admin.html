@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Portal · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .admin-banner {
+      background: linear-gradient(135deg, var(--maroon), var(--orange));
+      color: #fff;
+      padding: 36px 0 32px;
+    }
+    .admin-banner-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+    .admin-banner small {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .admin-banner h1 {
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .admin-banner p {
+      font-size: 14px;
+      opacity: 0.92;
+    }
+    .admin-quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .admin-quick-links a {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      color: #fff;
+      padding: 9px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .admin-quick-links a:hover {
+      background: #fff;
+      color: var(--maroon);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin: 28px 0 26px;
+    }
+    .kpi-card {
+      background: #fff;
+      border: 1px solid var(--peach);
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+      box-shadow: var(--shadow-sm);
+    }
+    .kpi-card small {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .kpi-card strong {
+      display: block;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--maroon);
+      margin-top: 6px;
+    }
+    .kpi-card span {
+      display: block;
+      font-size: 12.5px;
+      color: var(--orange);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .admin-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .admin-tab {
+      border: 1.5px solid var(--peach);
+      background: #fff;
+      color: var(--maroon);
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .admin-tab:hover {
+      background: var(--peach-soft);
+      border-color: var(--orange);
+    }
+    .admin-tab.active {
+      background: linear-gradient(135deg, var(--maroon), var(--orange));
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .admin-panel {
+      background: #fff;
+      border: 1px solid var(--peach);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 48px;
+    }
+    .admin-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .admin-panel-head h2 {
+      font-size: 20px;
+      color: var(--maroon);
+    }
+    .admin-search {
+      padding: 9px 14px;
+      border: 1.5px solid var(--peach);
+      border-radius: 10px;
+      font-size: 13.5px;
+      min-width: 240px;
+      outline: none;
+    }
+    .admin-search:focus {
+      border-color: var(--orange);
+    }
+    .table-wrap {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 13.5px;
+    }
+    th {
+      color: var(--maroon);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: var(--cream);
+    }
+    .status-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--peach-soft);
+      color: var(--maroon);
+    }
+    .status-pill.ok {
+      background: #E8F3EB;
+      color: #2E7D4F;
+    }
+    .action-select {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--peach);
+      font-size: 12.5px;
+      background: #fff;
+      color: var(--bean);
+    }
+
+    @media (max-width: 992px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .admin-search { width: 100%; min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header id="tt-navbar-mount"></header>
+
+  <main class="page-wrapper">
+    <section class="admin-banner">
+      <div class="container container-wide admin-banner-inner">
+        <div>
+          <small>TripTora Operations</small>
+          <h1>Admin Control Dashboard</h1>
+          <p id="adminWelcomeText">Monitor bookings, registered customers, and enquiries.</p>
+        </div>
+        <div class="admin-quick-links">
+          <a href="home.html">🏠 Customer Home</a>
+          <a href="../modules/flight/results.html">✈️ Flights</a>
+          <a href="../modules/bus/bus.html">🚌 Buses</a>
+          <a href="../modules/packages/packages.html">📍 Destinations</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container container-wide">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <small>Active Bookings</small>
+          <strong id="kpiBookings">0</strong>
+          <span>Synced from Trips Store</span>
+        </div>
+        <div class="kpi-card">
+          <small>Registered Users</small>
+          <strong id="kpiUsers">0</strong>
+          <span>Active TripTora Accounts</span>
+        </div>
+        <div class="kpi-card">
+          <small>Support Enquiries</small>
+          <strong id="kpiEnquiries">0</strong>
+          <span>Submitted Contact Requests</span>
+        </div>
+        <div class="kpi-card">
+          <small>Traveller Reviews</small>
+          <strong id="kpiReviews">1037</strong>
+          <span>Verified Base Ratings</span>
+        </div>
+      </div>
+
+      <div class="admin-tabs" id="adminTabs" role="tablist">
+        <button type="button" class="admin-tab active" data-tab="bookings">🧳 Bookings</button>
+        <button type="button" class="admin-tab" data-tab="users">👥 Registered Users</button>
+        <button type="button" class="admin-tab" data-tab="enquiries">✉️ Enquiries</button>
+      </div>
+
+      <div class="admin-panel">
+        <div class="admin-panel-head">
+          <h2 id="panelTitle">All Bookings</h2>
+          <input type="search" id="adminSearchInput" class="admin-search" placeholder="Filter records...">
+        </div>
+        <div class="table-wrap" id="adminTableWrap"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../js/common.js"></script>
+  <script>
+    (function () {
+      const esc = s => String(s || '').replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+
+      const DEFAULT_BOOKINGS = [
+        { id: 'WW-261118', name: 'Bali Slow Escape', dest: 'Ubud & Uluwatu, Bali', dates: '18-24 Nov 2026', amount: 1850, payment: 'Paid', status: 'Confirmed', lead: 'Maya Ellis' },
+        { id: 'WW-260905', name: 'Amalfi Coast Days', dest: 'Amalfi, Italy', dates: '10-16 Dec 2026', amount: 2400, payment: 'Paid', status: 'Confirmed', lead: 'Maya Ellis' },
+        { id: 'WW-260812', name: 'Kyoto Autumn Trail', dest: 'Kyoto, Japan', dates: '12-18 Sep 2026', amount: 3240, payment: 'Paid', status: 'Completed', lead: 'Maya Ellis' }
+      ];
+
+      function readJSON(key, fallback) {
+        try {
+          const val = JSON.parse(localStorage.getItem(key) || 'null');
+          return val ?? fallback;
+        } catch (e) {
+          return fallback;
+        }
+      }
+
+      let currentTab = 'bookings';
+      const searchEl = document.getElementById('adminSearchInput');
+
+      function getData() {
+        const bookings = readJSON('tp_bookings', DEFAULT_BOOKINGS);
+        const usersMap = readJSON('triptoraUsers', {});
+        if (usersMap['maya.ellis@example.com'] === 'Maya Ellis') {
+          delete usersMap['maya.ellis@example.com'];
+        }
+        const enquiries = readJSON('triptora_enquiries', []);
+        return { bookings, usersMap, enquiries };
+      }
+
+      function renderKpis() {
+        const { bookings, usersMap, enquiries } = getData();
+        document.getElementById('kpiBookings').textContent = bookings.length;
+        document.getElementById('kpiUsers').textContent = Object.keys(usersMap).length;
+        document.getElementById('kpiEnquiries').textContent = enquiries.length;
+        document.getElementById('kpiReviews').textContent = 1037;
+      }
+
+      function renderTable() {
+        const q = (searchEl.value || '').trim().toLowerCase();
+        const wrap = document.getElementById('adminTableWrap');
+        const titleEl = document.getElementById('panelTitle');
+        const { bookings, usersMap, enquiries } = getData();
+
+        if (currentTab === 'bookings') {
+          titleEl.textContent = 'All Bookings';
+          const filtered = bookings.filter(b =>
+            `${b.id} ${b.name} ${b.dest} ${b.lead} ${b.status}`.toLowerCase().includes(q)
+          );
+          if (!filtered.length) {
+            wrap.innerHTML = '<p style="color:var(--text-muted); padding:16px 0;">No bookings match your search.</p>';
+            return;
+          }
+          wrap.innerHTML = `
+            <table>
+              <thead>
+                <tr><th>Booking ID</th><th>Package / Route</th><th>Traveller</th><th>Dates</th><th>Status</th><th>Update Status</th></tr>
+              </thead>
+              <tbody>
+                ${filtered.map(b => `
+                  <tr>
+                    <td><strong>${esc(b.id)}</strong></td>
+                    <td>${esc(b.name || b.dest)}<br><small style="color:var(--text-muted)">${esc(b.dest || '')}</small></td>
+                    <td>${esc(b.lead || 'Customer')}</td>
+                    <td>${esc(b.dates || '-')}</td>
+                    <td><span class="status-pill ${b.status === 'Confirmed' || b.status === 'Completed' ? 'ok' : ''}">${esc(b.status)}</span></td>
+                    <td>
+                      <select class="action-select" data-booking-id="${esc(b.id)}">
+                        <option value="Confirmed" ${b.status === 'Confirmed' ? 'selected' : ''}>Confirmed</option>
+                        <option value="Completed" ${b.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                        <option value="Cancelled" ${b.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                      </select>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+          wrap.querySelectorAll('.action-select').forEach(sel => {
+            sel.addEventListener('change', () => {
+              const list = readJSON('tp_bookings', DEFAULT_BOOKINGS);
+              const item = list.find(x => x.id === sel.dataset.bookingId);
+              if (item) {
+                item.status = sel.value;
+                localStorage.setItem('tp_bookings', JSON.stringify(list));
+                if (window.ttToast) window.ttToast('Booking ' + item.id + ' marked as ' + sel.value);
+                renderTable();
+                renderKpis();
+              }
+            });
+          });
+        } else if (currentTab === 'users') {
+          titleEl.textContent = 'Registered Customer Accounts';
+          const rows = Object.entries(usersMap).filter(([email, name]) =>
+            `${email} ${name}`.toLowerCase().includes(q)
+          );
+          wrap.innerHTML = rows.length ? `
+            <table>
+              <thead><tr><th>Customer Name</th><th>Email Address</th><th>Role</th><th>Status</th></tr></thead>
+              <tbody>
+                ${rows.map(([email, name]) => `
+                  <tr>
+                    <td><strong>${esc(name)}</strong></td>
+                    <td>${esc(email)}</td>
+                    <td>User</td>
+                    <td><span class="status-pill ok">Active</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          ` : '<p style="color:var(--text-muted); padding:16px 0;">No registered users found.</p>';
+        } else if (currentTab === 'enquiries') {
+          titleEl.textContent = 'Customer Enquiries';
+          const filtered = enquiries.filter(e =>
+            `${e.name} ${e.email} ${e.subject} ${e.message}`.toLowerCase().includes(q)
+          );
+          wrap.innerHTML = filtered.length ? `
+            <table>
+              <thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Message</th></tr></thead>
+              <tbody>
+                ${filtered.map(e => `
+                  <tr>
+                    <td><strong>${esc(e.name)}</strong></td>
+                    <td>${esc(e.email)}</td>
+                    <td>${esc(e.subject)}</td>
+                    <td>${esc(e.message)}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          ` : '<p style="color:var(--text-muted); padding:16px 0;">No customer enquiries submitted yet. Submissions from Contact Us appear here automatically.</p>';
+        }
+      }
+
+      document.getElementById('adminTabs').addEventListener('click', (e) => {
+        const btn = e.target.closest('.admin-tab');
+        if (!btn) return;
+        currentTab = btn.dataset.tab;
+        document.querySelectorAll('.admin-tab').forEach(t => t.classList.toggle('active', t === btn));
+        renderTable();
+      });
+
+      searchEl.addEventListener('input', renderTable);
+      renderKpis();
+      renderTable();
+    })();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Enquiry & Support · TripTora</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="../../css/common.css">
+
+    <!-- Enquiry CSS -->
+    <link rel="stylesheet" href="enquiry.css">
+
+</head>
+
+
+<body>
+
+    <!-- ==============================
+         UNIVERSAL NAVBAR
+    =============================== -->
+
+    <header id="tt-navbar-mount"></header>
+
+
+
+    <!-- ==============================
+         ENQUIRY MAIN SECTION
+    =============================== -->
+
+    <main class="enquiry-container">
+
+
+        <!-- ==============================
+             LEFT CONTENT
+        =============================== -->
+
+        <section class="left-section">
+
+            <div class="small-heading">
+                <span></span>
+                TRAVEL SUPPORT
+            </div>
+
+
+            <h1>
+                Enquiry
+            </h1>
+
+
+            <p class="subtitle">
+                Have any questions? We're here to help you!
+            </p>
+
+
+
+            <!-- SUPPORT CONTENT -->
+
+            <div class="support-card">
+
+                <div class="support-icon">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
+
+                <div class="support-content">
+
+                    <h2>
+                        Let's plan your<br>
+                        next journey.
+                    </h2>
+
+                    <p>
+                        Whether you need help with a flight,
+                        bus booking, travel package or payment,
+                        our support team is ready to assist you.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SMALL CARDS -->
+
+            <div class="small-cards">
+
+                <div class="small-card">
+
+                    <div class="small-card-icon">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+
+                    <div>
+                        <h3>Travel Assistance</h3>
+                        <p>Get help with your travel plans.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="small-card">
+
+                    <div class="small-card-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+
+                    <div>
+                        <h3>Quick Response</h3>
+                        <p>We'll get back to you soon.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="bottom-text">
+                <i class="fa-solid fa-heart"></i>
+                Your journey matters to us.
+            </div>
+
+        </section>
+
+
+
+        <!-- ==============================
+             RIGHT FORM
+        =============================== -->
+
+        <section class="right-section">
+
+
+            <!-- FORM HEADER -->
+
+            <div class="form-heading">
+
+                <div class="form-icon">
+
+                    <i class="fa-solid fa-headset"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Send Your Enquiry
+                    </h2>
+
+                    <p>
+                        Fill out the form below and our destination concierge
+                        will get back to you shortly.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==============================
+                 FORM
+            =============================== -->
+
+            <form id="enquiryForm">
+
+
+                <!-- FULL NAME -->
+
+                <div class="form-group">
+
+                    <label for="fullName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email address"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- SUBJECT -->
+
+                <div class="form-group">
+
+                    <label for="subject">
+                        Subject
+                    </label>
+
+                    <select
+                        id="subject"
+                        name="subject"
+                        required
+                    >
+
+                        <option value="">
+                            Select Subject
+                        </option>
+
+                        <option value="Flight Enquiry">
+                            Flight Enquiry
+                        </option>
+
+                        <option value="Bus Booking">
+                            Bus Booking
+                        </option>
+
+                        <option value="Package Enquiry">
+                            Package Enquiry
+                        </option>
+
+                        <option value="Payment Issue">
+                            Payment Issue
+                        </option>
+
+                        <option value="Corporate / Group Travel">
+                            Corporate / Group Travel
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- OTHER SUBJECT -->
+
+                <div
+                    class="form-group"
+                    id="otherSubjectGroup"
+                    style="display:none;"
+                >
+
+                    <label for="otherSubject">
+                        Specify Subject
+                    </label>
+
+                    <input
+                        type="text"
+                        id="otherSubject"
+                        name="otherSubject"
+                        placeholder="Please specify your query subject"
+                    >
+
+                </div>
+
+
+
+                <!-- MESSAGE -->
+
+                <div class="form-group">
+
+                    <label for="message">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Write your message or custom travel request here..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Submit Enquiry
+
+                </button>
+
+
+
+                <!-- BACK HOME -->
+
+                <a
+                    href="../../index.html"
+                    class="back-home"
+                >
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back to Home Page
+
+                </a>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ==============================
+         FOOTER
+    =============================== -->
+
+    <footer id="tt-footer-mount"></footer>
+
+
+
+    <!-- EMAILJS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+
+    <!-- COMMON JS -->
+
+    <script src="../../js/common.js"></script>
+
+
+    <!-- ENQUIRY JS -->
+
+    <script src="enquiry.js"></script>
+
+</body>
+
+</html>

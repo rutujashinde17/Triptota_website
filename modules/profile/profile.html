@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Profile &amp; Trips · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="../../css/common.css">
+  <style>
+    :root {
+      --wine: var(--maroon, #95241F);
+      --wine2: #7A1915;
+      --orange: #FF8A42;
+      --cream: #FFF6F0;
+      --paper: #fff;
+      --ink: #260A0A;
+      --muted: #7A6A60;
+      --line: #F1E2CC;
+      --sage: #E8F3EB;
+      --green: #2E7D4F;
+      --gold: #FEBD71;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul, ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    button, input, select, textarea { font: inherit; }
+
+    .workspace-shell {
+      flex: 1 0 auto;
+      padding-top: var(--nav-height);
+    }
+
+    .profile-subbar {
+      display: none;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      padding: 10px 16px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--peach-soft, #FFF0E8);
+      border: 1.5px solid var(--peach, #FBBF9B);
+      color: var(--wine);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - var(--nav-height) - 60px);
+    }
+
+    .sidebar {
+      width: 240px;
+      background: #fff;
+      border-right: 1px solid var(--line);
+      padding: 26px 16px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-label {
+      font-size: 10.5px;
+      letter-spacing: 1px;
+      color: var(--muted);
+      font-weight: 700;
+      margin: 0 10px 14px;
+    }
+
+    .navlink {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin: 2px 0;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .navlink:hover {
+      background: var(--peach-soft, #FFF0E8);
+      color: var(--wine);
+    }
+
+    .navlink.active {
+      background: var(--orange);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .navlink i { font-size: 16px; }
+
+    .navlink-logout {
+      width: 100%;
+      background: #fff5f3;
+      border: 1px solid #f2cbc2;
+      color: var(--wine);
+      font-weight: 600;
+      text-align: left;
+      margin-top: 8px;
+    }
+
+    .navlink-logout:hover {
+      background: var(--wine);
+      border-color: var(--wine);
+      color: #fff;
+    }
+
+    .navlink-delete {
+      width: 100%;
+      background: #FDE8E7;
+      border: 1px solid #F5B7B1;
+      color: #C0392B;
+      font-weight: 600;
+      text-align: left;
+      margin-top: 8px;
+    }
+
+    .navlink-delete:hover {
+      background: #C0392B;
+      border-color: #C0392B;
+      color: #fff;
+    }
+
+    .alert-danger-soft {
+      background: #FDE8E7;
+      border: 1px solid #F5B7B1;
+      color: #922B21;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .btn-danger-trip {
+      background: #C0392B;
+      border: 1px solid #C0392B;
+      color: #fff;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-danger-trip:hover:not(:disabled) {
+      background: #922B21;
+      border-color: #922B21;
+      color: #fff;
+    }
+
+    .btn-danger-trip:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .delete-confirm-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #fff8f6;
+      border: 1px solid #f5c6cb;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+
+    .delete-confirm-box input[type="checkbox"] {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      accent-color: #C0392B;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .side-note {
+      background: var(--cream);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 17px;
+      margin-top: 24px;
+      color: var(--wine);
+    }
+
+    .side-note strong {
+      display: block;
+      font-size: 15px;
+      margin: 8px 0 4px;
+    }
+
+    .side-note p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .main {
+      flex: 1;
+      min-width: 0;
+      padding: 30px clamp(18px, 3vw, 44px) 48px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--wine);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .page-title {
+      color: var(--wine);
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 700;
+      margin: 0 0 6px;
+      line-height: 1.2;
+    }
+
+    .sub {
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .cardx {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 2px 10px rgba(38, 10, 10, 0.06);
+    }
+
+    .cardx h5, .section-title {
+      color: var(--wine);
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 16px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 18px;
+      box-shadow: 0 2px 10px rgba(38, 10, 10, 0.04);
+    }
+
+    .stat .cap { color: var(--muted); font-size: 12px; font-weight: 500; }
+    .stat strong { display: block; color: var(--wine); font-size: 26px; margin: 6px 0 3px; }
+    .stat small { color: var(--muted); font-size: 11.5px; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 0.9fr 1.3fr;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      overflow: hidden;
+      margin: 20px 0;
+      box-shadow: 0 2px 12px rgba(38, 10, 10, 0.06);
+    }
+
+    .hero-copy {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--wine);
+      margin: 12px 0;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 290px;
+      object-fit: cover;
+    }
+
+    .btn-trip {
+      background: var(--orange);
+      border: 1px solid var(--orange);
+      color: #fff;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-trip:hover { background: var(--wine); border-color: var(--wine); color: #fff; }
+    .btn-trip:disabled { opacity: 0.65; cursor: not-allowed; }
+
+    .btn-outline-trip {
+      background: #fff;
+      border: 1.5px solid var(--peach, #FBBF9B);
+      color: var(--wine);
+      border-radius: 10px;
+      padding: 9px 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-outline-trip:hover:not(:disabled) {
+      background: var(--peach-soft, #FFF0E8);
+      border-color: var(--orange);
+      color: var(--wine);
+    }
+
+    .btn-outline-trip:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .btn-link-trip {
+      border: 0;
+      background: none;
+      color: var(--wine);
+      font-weight: 700;
+      text-decoration: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .btn-link-trip:hover { color: var(--orange); }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    .gridwide { display: grid; grid-template-columns: 1.4fr 0.8fr; gap: 16px; margin-top: 16px; }
+    .muted { color: var(--muted); }
+    .tiny { font-size: 11.5px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      border-radius: 30px;
+      background: var(--sage);
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      width: fit-content;
+    }
+
+    .pill.warn { background: #FFF1D9; color: #94631B; }
+    .pill.red { background: #FDE8E7; color: #C0392B; }
+
+    .table-wrap { overflow-x: auto; }
+    .table { min-width: 820px; vertical-align: middle; margin-bottom: 10px; }
+    .table thead th {
+      background: var(--cream);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      border: 0;
+      padding: 13px 12px;
+      text-transform: uppercase;
+    }
+    .table tbody td {
+      padding: 16px 12px;
+      border-color: var(--line);
+      font-size: 12.5px;
+    }
+    .table tbody td .btn-link-trip { white-space: nowrap; }
+    .table tbody tr:last-child td { border-bottom: 0; }
+
+    .form-control, .form-select {
+      border: 1.5px solid var(--line);
+      border-radius: 9px;
+      padding: 10px 12px;
+      font-size: 13.5px;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 0.2rem rgba(255, 138, 66, 0.2);
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .filterbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .filterbar .form-control { min-width: 265px; max-width: 320px; }
+    .filterbar .form-select { max-width: 210px; }
+
+    .booking-cover {
+      height: 230px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 13px;
+    }
+
+    .detail-hero {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .info-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .info-pair small { display: block; color: var(--muted); font-size: 11px; margin-bottom: 4px; }
+    .info-pair strong { font-size: 13px; }
+    .amount { font: 700 26px 'Poppins', sans-serif; color: var(--wine); }
+
+    .alert-soft {
+      background: #FFF3D9;
+      border: 0;
+      color: #795A2B;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .alert-success-soft {
+      background: var(--sage);
+      color: var(--green);
+      border: 0;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .timeline {
+      border-left: 2px solid var(--peach, #FBBF9B);
+      margin-left: 10px;
+      padding-left: 22px;
+    }
+
+    .step { position: relative; padding: 0 0 20px; }
+    .step:before {
+      content: '';
+      position: absolute;
+      left: -30px;
+      top: 2px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--sage);
+      border: 3px solid var(--green);
+    }
+    .step.pending:before { background: #FFF1D9; border-color: var(--orange); }
+
+    .profile-banner { height: 155px; border-radius: 15px 15px 0 0; object-fit: cover; width: 100%; }
+    .profile-head { display: flex; align-items: center; gap: 18px; padding: 0 22px 20px; }
+    .profile-head .avatar { width: 72px; height: 72px; font-size: 23px; border: 4px solid #fff; margin-top: -30px; }
+    .field-value { font-weight: 600; margin-top: 3px; }
+    .field-block { margin-bottom: 16px; }
+
+    .modal-content { border: 0; border-radius: 18px; padding: 8px; }
+    .modal-header, .modal-footer { border: 0; padding: 14px 20px; }
+    .modal-body { padding: 10px 20px 18px; }
+    .modal-title { color: var(--wine); font-weight: 700; }
+
+    .rating button { border: 0; background: none; color: #d8d0c8; font-size: 27px; padding: 0 2px; cursor: pointer; }
+    .rating button.selected { color: #e7ad55; }
+
+    .empty { text-align: center; padding: 60px 20px; }
+    .empty i { font-size: 36px; color: var(--orange); }
+
+    .ai-chip {
+      border: 1.5px solid var(--peach, #FBBF9B);
+      background: var(--peach-soft, #FFF0E8);
+      color: var(--wine);
+      border-radius: 999px;
+      padding: 5px 13px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .ai-chip:hover {
+      background: var(--wine);
+      border-color: var(--wine);
+      color: #fff;
+    }
+
+    .ai-reply-box {
+      background: var(--cream);
+      border: 1px solid var(--peach, #FBBF9B);
+      border-radius: 12px;
+      padding: 16px 18px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--ink);
+      white-space: pre-wrap;
+    }
+
+    .mobile-menu { display: none; }
+    .hide { display: none !important; }
+    .text-danger { color: var(--wine) !important; }
+
+    @media (max-width: 1050px) {
+      .sidebar { width: 205px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .gridwide { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .profile-subbar { display: flex; padding: 10px 14px; }
+      .mobile-menu { display: inline-flex; }
+      .layout { display: block; }
+      .sidebar {
+        display: none;
+        position: fixed;
+        z-index: 950;
+        top: var(--nav-height);
+        bottom: 0;
+        left: 0;
+        width: 265px;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15);
+      }
+      .sidebar.open { display: flex; }
+      .main { padding: 22px 14px 36px; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .hero { grid-template-columns: 1fr; }
+      .hero img { min-height: 190px; max-height: 230px; grid-row: 1; }
+      .hero-copy { padding: 22px; }
+      .grid2, .detail-grid { grid-template-columns: 1fr; }
+      .cardx { padding: 18px; }
+      .filterbar > * { max-width: none !important; flex: 1 1 100%; }
+      .profile-head { align-items: flex-start; flex-wrap: wrap; }
+    }
+
+    @media (max-width: 420px) {
+      .stats { grid-template-columns: 1fr; }
+      .user-name { display: none; }
+      .info-pair { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <div class="workspace-shell">
+    <div class="profile-subbar">
+      <button class="btn-outline-trip mobile-menu" type="button" onclick="toggleSidebar()">
+        <i class="bi bi-list"></i> Workspace Menu
+      </button>
+      <button class="btn-outline-trip" id="profileMobileLogoutBtn" type="button" onclick="window.logoutTripTora && window.logoutTripTora()" style="color:var(--wine);border-color:#f2cbc2;padding:7px 14px;font-size:13px;">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
+    </div>
+
+    <div id="app"></div>
+  </div>
+
+  <!-- Action Modal (Cancel / Photo Preview) -->
+  <div class="modal fade" id="actionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../js/common.js"></script>
+  <script>
+    const imgBali = 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1300&q=85';
+    const imgAmalfi = 'https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?auto=format&fit=crop&w=1300&q=85';
+    const imgKyoto = 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1300&q=85';
+    const imgFallbackBali = '../../assets/images/bali.jpg';
+
+    const seedBookings = [
+      {
+        id: 'WW-260905',
+        name: 'Amalfi Coast Days',
+        dest: 'Amalfi, Italy',
+        dates: '10–16 Dec 2026',
+        start: '2026-12-10',
+        travellers: 2,
+        date: '05 Sep 2026',
+        amount: 2400,
+        payment: 'Refunding',
+        status: 'Cancelled',
+        image: imgAmalfi,
+        fallback: '../../assets/images/paris.jpg',
+        desc: 'Cliffside villages, sunlit terraces and unhurried days by the sea. Your Italian escape, thoughtfully arranged.',
+        transaction: 'PAY-260905-0905',
+        lead: 'Maya Ellis',
+        companion: 'Daniel Ellis',
+        phone: '+44 7700 900123',
+        email: 'maya.ellis@example.com'
+      },
+      {
+        id: 'WW-260812',
+        name: 'Kyoto Autumn Trail',
+        dest: 'Kyoto, Japan',
+        dates: '12–18 Sep 2026',
+        start: '2026-09-12',
+        travellers: 2,
+        date: '12 Aug 2026',
+        amount: 3240,
+        payment: 'Paid',
+        status: 'Completed',
+        image: imgKyoto,
+        fallback: '../../assets/images/switzerland.jpg',
+        desc: 'Slow mornings, temple paths and the colours of early autumn. A journey worth remembering.',
+        transaction: 'PAY-260812-0812',
+        lead: 'Maya Ellis',
+        companion: 'Daniel Ellis',
+        phone: '+44 7700 900123',
+        email: 'maya.ellis@example.com'
+      },
+      {
+        id: 'WW-260515',
+        name: 'Lisbon City & Coast',
+        dest: 'Lisbon, Portugal',
+        dates: '12–16 Jul 2026',
+        start: '2026-07-12',
+        travellers: 2,
+        date: '15 May 2026',
+        amount: 1800,
+        payment: 'Refunded',
+        status: 'Cancelled',
+        image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1000&q=80',
+        fallback: '../../assets/images/dubai.jpg',
+        desc: 'Coastal charm, colourful streets and a relaxed city escape.',
+        transaction: 'PAY-260515-0515'
+      },
+      {
+        id: 'WW-260918',
+        name: 'Bali Slow Escape',
+        dest: 'Bali, Indonesia',
+        dates: '18–24 Nov 2026',
+        start: '2026-11-18',
+        travellers: 2,
+        date: '18 Sep 2026',
+        amount: 2880,
+        payment: 'Paid',
+        status: 'Confirmed',
+        image: imgBali,
+        fallback: imgFallbackBali,
+        desc: 'Ubud and Seminyak, at your own pace. A restorative island escape.',
+        transaction: 'PAY-260918-0918'
+      }
+    ];
+
+    const seedRefunds = [
+      {
+        id: 'CN-261028',
+        booking: 'WW-260905',
+        name: 'Amalfi Coast Days',
+        reason: 'Plans changed',
+        date: '28 Oct 2026',
+        amount: 2160,
+        method: 'Visa •••• 4242',
+        bookingStatus: 'Cancelled',
+        status: 'Processing',
+        transaction: '— Pending',
+        paid: 2400,
+        fee: 240,
+        requested: '28 Oct 2026 · 14:32',
+        approved: '28 Oct 2026 · 14:35',
+        processing: '29 Oct 2026 · 09:10'
+      },
+      {
+        id: 'CN-260620',
+        booking: 'WW-260515',
+        name: 'Lisbon City & Coast',
+        reason: 'Schedule conflict',
+        date: '20 Jun 2026',
+        amount: 1620,
+        method: 'Visa •••• 4242',
+        bookingStatus: 'Cancelled',
+        status: 'Completed',
+        transaction: 'RF-260622-18',
+        paid: 1800,
+        fee: 180,
+        requested: '20 Jun 2026 · 11:20',
+        approved: '20 Jun 2026 · 11:25',
+        processing: '22 Jun 2026 · 09:00'
+      }
+    ];
+
+    const seedProfile = {
+      first: 'Maya',
+      last: 'Ellis',
+      dob: '14/05/1992',
+      nationality: 'British',
+      email: 'maya.ellis@example.com',
+      phone: '+44 7700 900123',
+      street: '18 Willow Lane',
+      city: 'London',
+      country: 'United Kingdom',
+      photo: ''
+    };
+
+    let bookings = [];
+    let refunds = [];
+    let profile = { ...seedProfile };
+
+    function syncFromStorage() {
+      bookings = JSON.parse(localStorage.getItem('tp_bookings') || 'null') || seedBookings.map(x => ({ ...x }));
+      refunds = JSON.parse(localStorage.getItem('tp_refunds') || 'null') || seedRefunds.map(x => ({ ...x }));
+      profile = JSON.parse(localStorage.getItem('tp_profile') || 'null') || { ...seedProfile };
+
+      // Sync profile with active TripTora login session
+      try {
+        const authSession = JSON.parse(localStorage.getItem('triptoraUser') || 'null');
+        if (authSession) {
+          const sEmail = (authSession.email || '').trim().toLowerCase();
+          const sName = (authSession.username || (sEmail ? sEmail.split('@')[0] : '')).trim();
+          if (sEmail && profile.email.toLowerCase() !== sEmail) {
+            const parts = sName.split(/\s+/).filter(Boolean);
+            profile = {
+              ...profile,
+              first: parts[0] || sName || 'Explorer',
+              last: parts.slice(1).join(' '),
+              email: sEmail,
+              phone: authSession.phone || profile.phone
+            };
+          }
+        }
+      } catch (e) {}
+
+      // Sync any newly booked TripTora checkouts (flight/bus/holiday package) into tp_bookings
+      try {
+        const siteBookings = JSON.parse(localStorage.getItem('triptora_bookings') || '[]');
+        siteBookings.forEach(sb => {
+          const refId = sb.pnr || sb.id;
+          if (refId && !bookings.some(b => b.id === refId)) {
+            const numAmt = typeof sb.amount === 'number'
+              ? sb.amount
+              : Number(String(sb.amount || '0').replace(/[^\d.]/g, '')) || 0;
+            bookings.unshift({
+              id: refId,
+              name: sb.title || 'TripTora Booking',
+              dest: sb.details || 'India / International',
+              dates: sb.date || 'Upcoming',
+              start: '2026-12-01',
+              travellers: 1,
+              date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+              amount: numAmt,
+              payment: sb.status === 'Pending Payment' ? 'Pending' : 'Paid',
+              status: sb.status === 'Cancelled' ? 'Cancelled' : (sb.status === 'Completed' ? 'Completed' : 'Confirmed'),
+              image: imgFallbackBali,
+              fallback: imgFallbackBali,
+              desc: sb.details || 'Booked directly through TripTora.',
+              transaction: 'PAY-' + refId
+            });
+          }
+        });
+      } catch (e) {}
+    }
+
+    syncFromStorage();
+
+    let currentBooking = bookings[0]?.id || 'WW-260918';
+    let currentRefund = refunds[0]?.id || 'CN-261028';
+    let selectedRating = 5;
+    let uploadedPhoto = '';
+
+    const save = () => {
+      localStorage.setItem('tp_bookings', JSON.stringify(bookings));
+      localStorage.setItem('tp_refunds', JSON.stringify(refunds));
+      localStorage.setItem('tp_profile', JSON.stringify(profile));
+    };
+    save();
+
+    const money = n => '₹' + Number(n || 0).toLocaleString('en-IN', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+    const fullName = () => `${profile.first} ${profile.last}`.trim();
+    const initials = () => ((profile.first?.[0] || 'M') + (profile.last?.[0] || 'E')).toUpperCase();
+    const escapeHtml = str => String(str || '').replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+
+    function notify(msg) {
+      if (window.ttToast) window.ttToast(msg);
+    }
+
+    function go(route) {
+      location.hash = route;
+    }
+
+    function toggleSidebar() {
+      document.querySelector('.sidebar')?.classList.toggle('open');
+    }
+
+    function closeSidebarOnMobile() {
+      document.querySelector('.sidebar')?.classList.remove('open');
+    }
+
+    function nav(active) {
+      return `
+        <aside class="sidebar">
+          <div class="side-label">USER WORKSPACE</div>
+          <a class="navlink ${active === 'overview' ? 'active' : ''}" href="#overview" onclick="closeSidebarOnMobile()">
+            <i class="bi bi-grid"></i> Overview
+          </a>
+          <a class="navlink ${active === 'bookings' ? 'active' : ''}" href="#bookings" onclick="closeSidebarOnMobile()">
+            <i class="bi bi-suitcase"></i> My Booking
+          </a>
+          <a class="navlink ${active === 'refunds' ? 'active' : ''}" href="#refunds" onclick="closeSidebarOnMobile()">
+            <i class="bi bi-wallet2"></i> My Refund
+          </a>
+          <a class="navlink ${active === 'profile' ? 'active' : ''}" href="#profile" onclick="closeSidebarOnMobile()">
+            <i class="bi bi-person"></i> My Profile
+          </a>
+          <button type="button" class="navlink navlink-logout" id="profileLogoutBtn" onclick="window.logoutTripTora && window.logoutTripTora()">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </button>
+          <button type="button" class="navlink navlink-delete" id="profileDeleteAccountBtn" onclick="closeSidebarOnMobile(); showDeleteAccountModal()">
+            <i class="bi bi-trash3"></i> Delete Account
+          </button>
+          <div class="side-note">
+            <i class="bi bi-compass"></i>
+            <strong>A little further, a little closer.</strong>
+            <p>Your next story starts here with TripTora.</p>
+          </div>
+        </aside>
+      `;
+    }
+
+    function shell(active, body) {
+      document.getElementById('app').innerHTML = `
+        <div class="layout">
+          ${nav(active)}
+          <main class="main">
+            ${body}
+          </main>
+        </div>
+      `;
+    }
+
+    function heading(kicker, title, sub) {
+      return `<div class="eyebrow">${kicker}</div><h1 class="page-title">${title}</h1><p class="sub">${sub}</p>`;
+    }
+
+    function stat(label, value, note, icon) {
+      return `
+        <div class="stat">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="cap">${label}</span>
+            <i class="bi ${icon} text-danger"></i>
+          </div>
+          <strong>${value}</strong>
+          <small>${note}</small>
+        </div>
+      `;
+    }
+
+    function render() {
+      if (window.getTripToraUser && !window.getTripToraUser()) {
+        return;
+      }
+      syncFromStorage();
+      let route = location.hash.replace('#', '') || 'overview';
+      if (!['overview', 'bookings', 'booking', 'cancel', 'refunds', 'refund', 'profile', 'edit-profile', 'password'].includes(route)) {
+        route = 'overview';
+      }
+      if (route === 'overview') renderOverview();
+      else if (route === 'bookings') renderBookings();
+      else if (route === 'booking') renderBooking();
+      else if (route === 'cancel') renderBooking(true);
+      else if (route === 'refunds') renderRefunds();
+      else if (route === 'refund') renderRefund();
+      else if (route === 'profile') renderProfile();
+      else if (route === 'edit-profile') renderEditProfile();
+      else if (route === 'password') renderPassword();
+    }
+
+    function renderOverview() {
+      const next = bookings.find(b => b.id === 'WW-260918') || bookings.find(b => b.status === 'Confirmed') || bookings[0];
+      const recent = refunds[0];
+      const upcomingCount = bookings.filter(b => b.status === 'Confirmed').length;
+      const completedCount = bookings.filter(b => b.status === 'Completed').length;
+      const pendingAmt = refunds.filter(r => r.status === 'Processing').reduce((a, r) => a + r.amount, 0);
+
+      shell('overview', `
+        ${heading('YOUR TRAVEL COMPANION / 01 / OVERVIEW', `Welcome back, ${escapeHtml(profile.first)}.`, 'A new perspective is just around the corner.')}
+        <div class="stats">
+          ${stat('Your journeys', bookings.length, 'Every trip, in one place', 'bi-suitcase')}
+          ${stat('Upcoming adventure', upcomingCount, next ? next.dest : 'Ready to explore', 'bi-airplane')}
+          ${stat('Places explored', completedCount, 'Memories made across trips', 'bi-geo-alt')}
+          ${stat('Refund in progress', money(pendingAmt), 'Back to your original card', 'bi-wallet2')}
+        </div>
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="pill">Your next adventure · 20 days to go</span>
+            <h2>${escapeHtml(next?.name || 'Your next story awaits')}.</h2>
+            <p class="muted">${escapeHtml(next?.dates || '')} · ${escapeHtml(next?.dest || '')} · ${next?.travellers || 2} travellers</p>
+            <div>
+              <button class="btn-trip" onclick="openBooking('${next?.id || bookings[0].id}')">
+                <i class="bi bi-arrow-up-right"></i> View Booking Details
+              </button>
+            </div>
+          </div>
+          <img src="${next?.image || imgFallbackBali}" alt="Destination" onerror="this.onerror=null;this.src='${imgFallbackBali}'">
+        </div>
+        <div class="grid2">
+          <section class="cardx">
+            <h5>Your account, at a glance</h5>
+            <div class="info-pair">
+              <div><small>Travelling as</small><strong>${escapeHtml(fullName())}</strong></div>
+              <div><small>Member since</small><strong>March 2026</strong></div>
+              <div><small>Contact email</small><strong>${escapeHtml(profile.email)}</strong></div>
+              <div><small>Profile complete</small><span class="pill">Profile complete</span></div>
+            </div>
+            <hr>
+            <button class="btn-link-trip" onclick="go('profile')">My Profile →</button>
+          </section>
+          <section class="cardx">
+            <h5>A few useful shortcuts</h5>
+            <div class="d-grid gap-3">
+              <button class="btn-link-trip text-start" onclick="go('bookings')">
+                <i class="bi bi-suitcase me-2"></i>Your travel plans
+                <span class="muted d-block tiny ms-4">Tickets, travellers and trip details</span>
+              </button>
+              <button class="btn-link-trip text-start" onclick="go('refunds')">
+                <i class="bi bi-wallet2 me-2"></i>Follow your refund
+                <span class="muted d-block tiny ms-4">A clear view of every step</span>
+              </button>
+              <button class="btn-link-trip text-start" onclick="go('profile')">
+                <i class="bi bi-person me-2"></i>Make it personal &amp; ask AI
+                <span class="muted d-block tiny ms-4">Personal details &amp; Gemini Travel Assistant</span>
+              </button>
+            </div>
+          </section>
+        </div>
+        <div class="gridwide">
+          <section class="cardx">
+            <h5>Recent activity</h5>
+            <div class="timeline">
+              <div class="step">
+                <small class="muted">29 Oct · 09:10</small>
+                <strong class="d-block">Your ${escapeHtml(recent?.name || 'refund')} refund is ${recent?.status === 'Completed' ? 'complete' : 'processing'}</strong>
+                <span class="muted tiny">${money(recent?.amount || 0)} will return to ${escapeHtml(recent?.method || 'your original card')}.</span>
+              </div>
+              <div class="step">
+                <small class="muted">28 Oct · 14:32</small>
+                <strong class="d-block">Amalfi Coast Days cancelled</strong>
+                <span class="muted tiny">Cancellation CN-261028</span>
+              </div>
+              <div class="step">
+                <small class="muted">18 Sep · 10:42</small>
+                <strong class="d-block">Your Bali escape is confirmed</strong>
+                <span class="muted tiny">All set for 18 November. Let the countdown begin.</span>
+              </div>
+            </div>
+          </section>
+          <section class="cardx">
+            <div class="eyebrow">A LITTLE LOOK BACK</div>
+            ${(() => {
+              const latestCompleted = bookings.find(b => b.status === 'Completed');
+              if (!latestCompleted) {
+                return `
+                  <strong>No completed trips yet</strong>
+                  <div class="muted tiny">Completed journeys become eligible for verified reviews.</div>
+                  <button class="btn-link-trip mt-3" onclick="go('bookings')">View My Bookings →</button>
+                `;
+              }
+              return `
+                <img class="booking-cover mb-3" style="height:150px" src="${latestCompleted.image}" alt="${escapeHtml(latestCompleted.name)}" onerror="this.onerror=null;this.src='${latestCompleted.fallback || imgFallbackBali}'">
+                <strong>${escapeHtml(latestCompleted.name)}</strong>
+                <div class="muted tiny">${escapeHtml(latestCompleted.dates)} · Completed</div>
+                <button class="btn-link-trip mt-3" onclick="openBooking('${escapeHtml(latestCompleted.id)}')">View Details →</button>
+              `;
+            })()}
+          </section>
+        </div>
+      `);
+    }
+
+    function openBooking(id) {
+      currentBooking = id;
+      go('booking');
+    }
+
+    function goToReviewPage(id) {
+      const b = bookings.find(x => x.id === id);
+      const paymentPaid = b && String(b.payment || '').toLowerCase() === 'paid';
+      const bookingDone = b && String(b.status || '').toLowerCase() === 'completed';
+      if (!b || !paymentPaid || !bookingDone) {
+        notify('Reviews are enabled only after both payment and trip booking are completed.');
+        return;
+      }
+      const q = new URLSearchParams({
+        tripId: b.id,
+        trip: b.name || ''
+      });
+      window.location.href = '../review/review.html?' + q.toString();
+    }
+
+    function renderBookings() {
+      const rows = bookings.map(b => `
+        <tr data-status="${b.status}" data-date="${b.start}" data-search="${escapeHtml((b.id + ' ' + b.name + ' ' + b.dest).toLowerCase())}">
+          <td><strong>${escapeHtml(b.name)}</strong><div class="muted tiny">${escapeHtml(b.id)}</div></td>
+          <td>${escapeHtml(b.dest)}</td>
+          <td>${escapeHtml(b.dates)}</td>
+          <td>${b.travellers || 2}</td>
+          <td>${escapeHtml(b.date)}</td>
+          <td>${money(b.amount)}</td>
+          <td><span class="pill ${b.payment === 'Refunding' || b.payment === 'Pending' ? 'warn' : ''}">${escapeHtml(b.payment)}</span></td>
+          <td><span class="pill ${b.status === 'Cancelled' ? 'red' : ''}">${escapeHtml(b.status)}</span></td>
+          <td><button class="btn-link-trip" onclick="openBooking('${escapeHtml(b.id)}')">View Details →</button></td>
+        </tr>
+      `).join('');
+
+      shell('bookings', `
+        ${heading('YOUR TRAVEL COMPANION / 02 / MY BOOKING', 'Every journey, together.', 'Your upcoming plans and favourite memories, all in one place.')}
+        <div class="stats">
+          ${stat('All bookings', bookings.length, 'Your travel collection', 'bi-suitcase')}
+          ${stat('Upcoming', bookings.filter(b => b.status === 'Confirmed').length, 'Bali · 18 November', 'bi-airplane')}
+          ${stat('Completed', bookings.filter(b => b.status === 'Completed').length, 'Kyoto · September 2026', 'bi-geo-alt')}
+          ${stat('Cancelled', bookings.filter(b => b.status === 'Cancelled').length, 'Refund details available', 'bi-calendar-x')}
+        </div>
+        <section class="cardx">
+          <h5>My Bookings</h5>
+          <div class="filterbar">
+            <input id="bookingSearch" class="form-control" placeholder="Search ID, package or destination" oninput="filterBookings()">
+            <select id="bookingStatus" class="form-select" onchange="filterBookings()">
+              <option value="">Status: All</option>
+              <option>Confirmed</option>
+              <option>Completed</option>
+              <option>Cancelled</option>
+            </select>
+            <select id="bookingDate" class="form-select" onchange="filterBookings()">
+              <option value="">Date: All dates</option>
+              <option value="2026">2026</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Package</th><th>Destination</th><th>Start / End</th><th>Travellers</th><th>Booking Date</th><th>Amount</th><th>Payment</th><th>Booking</th><th></th>
+                </tr>
+              </thead>
+              <tbody id="bookingRows">${rows}</tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <small class="muted" id="bookingCount">Showing ${bookings.length} bookings</small>
+            <div>
+              <button class="btn-outline-trip" onclick="notify('You are on the first page.')">Previous</button>
+              <button class="btn-trip">1</button>
+              <button class="btn-outline-trip" onclick="notify('All bookings are displayed.')">Next</button>
+            </div>
+          </div>
+        </section>
+      `);
+    }
+
+    function filterBookings() {
+      const q = document.getElementById('bookingSearch').value.toLowerCase();
+      const s = document.getElementById('bookingStatus').value;
+      const d = document.getElementById('bookingDate').value;
+      let n = 0;
+      document.querySelectorAll('#bookingRows tr').forEach(tr => {
+        const ok = tr.dataset.search.includes(q) && (!s || tr.dataset.status === s) && (!d || (tr.dataset.date || '').includes(d));
+        tr.classList.toggle('hide', !ok);
+        if (ok) n++;
+      });
+      document.getElementById('bookingCount').textContent = `Showing ${n} of ${bookings.length} bookings`;
+    }
+
+    function renderBooking(cancel = false) {
+      const b = bookings.find(x => x.id === currentBooking) || bookings[0];
+      const paymentPaid = String(b.payment || '').toLowerCase() === 'paid';
+      const completed = String(b.status || '').toLowerCase() === 'completed';
+      const canSubmitReview = paymentPaid && completed;
+      shell('bookings', `
+        ${heading(
+          cancel ? 'YOUR TRAVEL COMPANION / 04 / MY BOOKING / CANCEL' : 'YOUR TRAVEL COMPANION / 03 / MY BOOKING / DETAILS',
+          completed ? 'A journey to remember.' : 'Your trip, thoughtfully arranged.',
+          completed ? 'Journey complete. Keep the memories and share your experience.' : 'Your booking details, travellers and payment information in one place.'
+        )}
+        <div class="detail-hero">
+          <img class="booking-cover" src="${b.image}" alt="${escapeHtml(b.name)}" onerror="this.onerror=null;this.src='${b.fallback || imgFallbackBali}'">
+          <div class="d-flex justify-content-between align-items-center flex-wrap mt-3">
+            <div>
+              <small class="muted">BOOKED ${escapeHtml((b.date || '').toUpperCase())}</small>
+              <h2 class="page-title" style="font-size:28px">${escapeHtml(b.name)}</h2>
+            </div>
+            <span class="pill ${b.status === 'Cancelled' ? 'red' : ''}">${escapeHtml(b.status)}</span>
+          </div>
+          <div class="info-pair mt-3">
+            <div><small>Destination</small><strong>${escapeHtml(b.dest)}</strong></div>
+            <div><small>Start / End</small><strong>${escapeHtml(b.dates)}</strong></div>
+            <div><small>Travellers / Duration</small><strong>${b.travellers || 2} adults · 7 days</strong></div>
+          </div>
+          <p class="muted mt-3 mb-0">${escapeHtml(b.desc)}</p>
+        </div>
+        <div class="detail-grid">
+          <section class="cardx">
+            <h5>Your travelling companions</h5>
+            <div class="field-block"><small class="muted">Lead traveller</small><div class="field-value">${escapeHtml(b.lead || fullName())} · Adult</div></div>
+            <div class="field-block"><small class="muted">Companion</small><div class="field-value">${escapeHtml(b.companion || 'Daniel Ellis · Adult')}</div></div>
+            <hr>
+            <div class="field-block"><small class="muted">Trip contact</small><div class="field-value">${escapeHtml(b.email || profile.email)}</div></div>
+            <div><small class="muted">Phone</small><div class="field-value">${escapeHtml(b.phone || profile.phone)}</div></div>
+          </section>
+          <section class="cardx">
+            <h5>Payment summary</h5>
+            <span class="pill">${escapeHtml(b.payment || 'Paid')}</span>
+            <div class="d-flex justify-content-between mt-3"><span class="muted">Package · ${b.travellers || 2} adults</span><strong>${money(b.amount)}</strong></div>
+            <div class="d-flex justify-content-between mt-2"><span class="muted">Additional charges</span><strong>${money(0)}</strong></div>
+            <hr>
+            <div class="d-flex justify-content-between"><strong>Amount paid</strong><strong class="amount">${money(b.amount)}</strong></div>
+            <div class="info-pair mt-3">
+              <div><small>Method</small><strong>Visa •••• 4242</strong></div>
+              <div><small>Paid on</small><strong>${escapeHtml(b.date)}</strong></div>
+            </div>
+            <small class="muted d-block mt-3">Transaction ${escapeHtml(b.transaction || 'PAY-260905-0905')}</small>
+          </section>
+        </div>
+        ${canSubmitReview ? `
+          <section class="cardx mt-3" id="viewDetailsReviewBox">
+            <h5>Payment &amp; Trip Completed · Submit Review</h5>
+            <div class="alert-success-soft mb-3">Both your payment (Paid) and journey (Completed) are complete. Proceed to our Verified Review page to verify your account and submit a review for this trip.</div>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              <div>
+                <strong>${escapeHtml(b.name)}</strong>
+                <div class="muted tiny">${escapeHtml(b.dest)} · ${escapeHtml(b.dates)} · Booking ${escapeHtml(b.id)}</div>
+              </div>
+              <button class="btn-trip" id="viewDetailsSubmitReviewBtn" type="button" onclick="goToReviewPage('${escapeHtml(b.id)}')">★ Submit Review →</button>
+            </div>
+          </section>
+        ` : completed ? `
+          <section class="cardx mt-3">
+            <h5>Payment Pending Verification</h5>
+            <div class="alert-soft"><i class="bi bi-info-circle me-2"></i>Reviews are enabled once both booking status is <strong>Completed</strong> and payment status is <strong>Paid</strong> (current payment: ${escapeHtml(b.payment || 'Pending')}).</div>
+          </section>
+        ` : `
+          <section class="cardx mt-3">
+            <h5>A little flexibility for your plans</h5>
+            <div class="alert-soft"><i class="bi bi-info-circle me-2"></i>This booking ${b.status === 'Confirmed' ? 'is eligible for cancellation' : 'is not currently eligible for cancellation'}.</div>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mt-3">
+              <p class="muted mb-0" style="max-width:560px;">Cancel 30+ days before departure: 10% fee. Within 1–29 days: 50% fee. Refunds return to your original payment method in 5–7 business days.</p>
+              <div class="text-end">
+                <small class="muted d-block">Indicative refund</small>
+                <div class="amount">${money(b.amount * 0.9)}</div>
+                <button class="btn-outline-trip mt-2" type="button" ${b.status !== 'Confirmed' ? 'disabled' : ''} onclick="showCancel('${b.id}')">
+                  <i class="bi bi-calendar-x"></i> Cancel Booking
+                </button>
+              </div>
+            </div>
+          </section>
+        `}
+      `);
+    }
+
+    function showCancel(id) {
+      currentBooking = id;
+      const b = bookings.find(x => x.id === id);
+      const fee = b.amount * 0.1;
+      const refund = b.amount - fee;
+      modal(`
+        <div class="modal-header">
+          <h5 class="modal-title">Cancel this journey?</h5>
+          <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="muted">Take a moment to review your refund.</p>
+          <h5>${escapeHtml(b.name)}</h5>
+          <div class="d-flex justify-content-between my-3"><span class="muted">Booking reference</span><strong>${escapeHtml(b.id)}</strong></div>
+          <div class="d-flex justify-content-between"><span class="muted">Travel dates</span><strong>${escapeHtml(b.dates)}</strong></div>
+          <hr>
+          <div class="d-flex justify-content-between"><span>Amount paid</span><strong>${money(b.amount)}</strong></div>
+          <div class="d-flex justify-content-between mt-2"><span class="muted">Indicative cancellation fee · 10%</span><strong>− ${money(fee)}</strong></div>
+          <div class="d-flex justify-content-between text-danger mt-2"><strong>Refund to original card</strong><strong class="amount">${money(refund)}</strong></div>
+          <label class="form-label mt-3">Reason</label>
+          <select id="cancelReason" class="form-select">
+            <option>Plans changed</option>
+            <option>Schedule conflict</option>
+            <option>Personal reasons</option>
+            <option>Other</option>
+          </select>
+          <div class="alert-soft mt-3 tiny">Your booking will be cancelled after confirmation. Allow 5–7 business days for the refund to reach your card.</div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-outline-trip" data-bs-dismiss="modal" type="button">Back</button>
+          <button class="btn-trip" type="button" onclick="confirmCancel('${id}')">Confirm Cancellation</button>
+        </div>
+      `);
+    }
+
+    function confirmCancel(id) {
+      const b = bookings.find(x => x.id === id);
+      if (!b || b.status !== 'Confirmed') {
+        notify('This booking cannot be cancelled.');
+        return;
+      }
+      const reason = document.getElementById('cancelReason').value;
+      const fee = Math.round(b.amount * 0.1 * 100) / 100;
+      b.status = 'Cancelled';
+      b.payment = 'Refunding';
+      refunds.unshift({
+        id: 'CN-' + Date.now().toString().slice(-6),
+        booking: id,
+        name: b.name,
+        reason,
+        date: '08 Nov 2026',
+        amount: b.amount - fee,
+        method: 'Visa •••• 4242',
+        bookingStatus: 'Cancelled',
+        status: 'Processing',
+        transaction: '— Pending',
+        paid: b.amount,
+        fee,
+        requested: '08 Nov 2026 · 09:10',
+        approved: '08 Nov 2026 · 09:15',
+        processing: '08 Nov 2026 · 09:20'
+      });
+      save();
+      closeModalSafe();
+      currentRefund = refunds[0].id;
+      notify('Booking cancelled. Your refund request has been created.');
+      go('refund');
+    }
+
+    function renderRefunds() {
+      const rows = refunds.map(r => `
+        <tr data-status="${r.status}" data-search="${escapeHtml((r.id + ' ' + r.booking + ' ' + r.name).toLowerCase())}">
+          <td><strong>${escapeHtml(r.id)}</strong><div class="muted tiny">${escapeHtml(r.booking)}</div></td>
+          <td>${escapeHtml(r.name)}</td>
+          <td>${escapeHtml(r.reason)}</td>
+          <td>${escapeHtml(r.date)}</td>
+          <td><strong>${money(r.amount)}</strong></td>
+          <td>${escapeHtml(r.method)}</td>
+          <td><span class="pill red">${escapeHtml(r.bookingStatus)}</span></td>
+          <td><span class="pill ${r.status === 'Completed' ? '' : 'warn'}">${escapeHtml(r.status)}</span></td>
+          <td>${escapeHtml(r.transaction)}</td>
+          <td><button class="btn-link-trip" onclick="openRefund('${r.id}')">View Details →</button></td>
+        </tr>
+      `).join('');
+
+      shell('refunds', `
+        ${heading('YOUR TRAVEL COMPANION / 05 / MY REFUND', 'A clear path back to you.', 'Follow your refunds, from cancellation to the return to your card.')}
+        <div class="stats">
+          ${stat('Refund requests', refunds.length, 'Across your cancelled trips', 'bi-receipt')}
+          ${stat('Total requested', money(refunds.reduce((a, r) => a + r.amount, 0)), 'After cancellation fees', 'bi-wallet2')}
+          ${stat('In progress', money(refunds.filter(r => r.status === 'Processing').reduce((a, r) => a + r.amount, 0)), 'Processing smoothly', 'bi-clock')}
+          ${stat('Returned to you', money(refunds.filter(r => r.status === 'Completed').reduce((a, r) => a + r.amount, 0)), 'Completed refunds', 'bi-check-circle')}
+        </div>
+        <section class="cardx">
+          <h5>My Refunds</h5>
+          <div class="filterbar">
+            <input id="refundSearch" class="form-control" placeholder="Search cancellation or booking ID" oninput="filterRefunds()">
+            <select id="refundStatus" class="form-select" onchange="filterRefunds()">
+              <option value="">Status: All</option>
+              <option>Processing</option>
+              <option>Completed</option>
+              <option>Rejected</option>
+            </select>
+            <button class="btn-link-trip" type="button" onclick="clearRefundFilters()">Clear filters</button>
+          </div>
+          <div id="refundTableWrap" class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Cancellation / Booking ID</th><th>Package</th><th>Reason</th><th>Date</th><th>Amount</th><th>Method</th><th>Booking status</th><th>Refund status</th><th>Transaction ID</th><th></th>
+                </tr>
+              </thead>
+              <tbody id="refundRows">${rows}</tbody>
+            </table>
+          </div>
+          <div id="refundEmpty" class="empty hide">
+            <i class="bi bi-wallet2"></i>
+            <h4 class="page-title mt-3" style="font-size:24px">No refunds match these filters.</h4>
+            <p class="muted">Clear the filter to see your refund requests.</p>
+            <button class="btn-trip" type="button" onclick="clearRefundFilters()">Clear Filters</button>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <small class="muted" id="refundCount">Showing ${refunds.length} of ${refunds.length} refunds</small>
+          </div>
+        </section>
+      `);
+    }
+
+    function filterRefunds() {
+      const q = document.getElementById('refundSearch').value.toLowerCase();
+      const s = document.getElementById('refundStatus').value;
+      let n = 0;
+      document.querySelectorAll('#refundRows tr').forEach(tr => {
+        const ok = tr.dataset.search.includes(q) && (!s || tr.dataset.status === s);
+        tr.classList.toggle('hide', !ok);
+        if (ok) n++;
+      });
+      document.getElementById('refundTableWrap').classList.toggle('hide', n === 0);
+      document.getElementById('refundEmpty').classList.toggle('hide', n !== 0);
+      document.getElementById('refundCount').textContent = `Showing ${n} of ${refunds.length} refunds`;
+    }
+
+    function clearRefundFilters() {
+      document.getElementById('refundSearch').value = '';
+      document.getElementById('refundStatus').value = '';
+      filterRefunds();
+    }
+
+    function openRefund(id) {
+      currentRefund = id;
+      go('refund');
+    }
+
+    function renderRefund() {
+      const r = refunds.find(x => x.id === currentRefund) || refunds[0];
+      if (!r) { go('refunds'); return; }
+      const b = bookings.find(x => x.id === r.booking) || {};
+      shell('refunds', `
+        ${heading('YOUR TRAVEL COMPANION / 06 / MY REFUND / DETAILS', 'Your refund is on its way.', 'Everything you need to know about your cancellation.')}
+        <div class="cardx mb-3">
+          <div class="row g-3 align-items-center">
+            <div class="col-md-3">
+              <img class="booking-cover" style="height:145px" src="${b.image || imgAmalfi}" alt="${escapeHtml(r.name)}" onerror="this.onerror=null;this.src='${imgFallbackBali}'">
+            </div>
+            <div class="col-md-9">
+              <div class="d-flex justify-content-between flex-wrap">
+                <h2 class="page-title" style="font-size:26px">${escapeHtml(r.name)}</h2>
+                <span class="pill warn">${escapeHtml(r.status)}</span>
+              </div>
+              <div class="info-pair mt-3">
+                <div><small>Cancellation ID</small><strong>${escapeHtml(r.id)}</strong></div>
+                <div><small>Booking ID</small><strong>${escapeHtml(r.booking)}</strong></div>
+                <div><small>Travel dates</small><strong>${escapeHtml(b.dates || '10–16 Dec 2026')}</strong></div>
+                <div><small>Reason</small><strong>${escapeHtml(r.reason)}</strong></div>
+              </div>
+              <span class="pill red mt-3">Booking cancelled</span>
+            </div>
+          </div>
+        </div>
+        <div class="alert-success-soft mb-3">
+          <strong>Refund requested successfully</strong>
+          <div class="tiny">Your booking was cancelled on ${escapeHtml(r.requested)}. Your ${money(r.amount)} refund is now being processed to ${escapeHtml(r.method)}.</div>
+        </div>
+        <div class="detail-grid">
+          <section class="cardx">
+            <h5>A little closer, step by step</h5>
+            <div class="timeline mt-3">
+              <div class="step"><strong>Cancellation confirmed</strong><div class="tiny muted">${escapeHtml(r.requested)}</div><span class="tiny">${escapeHtml(r.name)} · cancelled.</span></div>
+              <div class="step"><strong>Refund approved</strong><div class="tiny muted">${escapeHtml(r.approved)}</div><span class="tiny">${money(r.amount)} approved after a ${money(r.fee)} fee.</span></div>
+              <div class="step pending"><strong>Processing with payment provider</strong><div class="tiny muted">${escapeHtml(r.processing)}</div><span class="tiny">Sent to ${escapeHtml(r.method)}.</span></div>
+              <div class="step pending"><strong>Back on your card</strong><div class="tiny muted">Expected within 5–7 business days</div><span class="tiny">Credited directly to your original source.</span></div>
+            </div>
+          </section>
+          <section class="cardx">
+            <h5>Your refund breakdown</h5>
+            <div class="d-flex justify-content-between mb-3"><span class="muted">Original amount paid</span><strong>${money(r.paid)}</strong></div>
+            <div class="d-flex justify-content-between mb-3"><span class="muted">Cancellation fee</span><strong>− ${money(r.fee)}</strong></div>
+            <hr>
+            <div class="d-flex justify-content-between"><strong>Refund amount</strong><strong class="amount">${money(r.amount)}</strong></div>
+            <hr>
+            <div class="field-block"><small class="muted">Return method</small><strong class="d-block">${escapeHtml(r.method)}</strong></div>
+            <div class="field-block"><small class="muted">Refund transaction ID</small><strong class="d-block">${escapeHtml(r.transaction)}</strong></div>
+            <div><small class="muted">Original payment reference</small><strong class="d-block">${escapeHtml(b.transaction || 'PAY-260905-0905')}</strong></div>
+          </section>
+        </div>
+        <button class="btn-outline-trip mt-3" type="button" onclick="go('refunds')">← Back to My Refunds</button>
+      `);
+    }
+
+    function renderProfile() {
+      const savedKey = localStorage.getItem('tp_gemini_key') || '';
+      shell('profile', `
+        ${heading('YOUR TRAVEL COMPANION / 07 / MY PROFILE', `Hello, ${escapeHtml(profile.first)}. This is your space.`, 'The personal details that help us make your journeys feel effortless.')}
+        <section class="cardx p-0 overflow-hidden mb-3">
+          <img class="profile-banner" src="${imgBali}" alt="Bali" onerror="this.onerror=null;this.src='${imgFallbackBali}'">
+          <div class="profile-head">
+            <div class="avatar">${profile.photo ? `<img src="${profile.photo}" alt="${escapeHtml(fullName())}">` : initials()}</div>
+            <div class="flex-grow-1">
+              <h2 class="page-title" style="font-size:26px;margin:0">${escapeHtml(fullName())}</h2>
+              <span class="muted">${escapeHtml(profile.city)}, ${escapeHtml(profile.country)} · Member since March 2026</span>
+              <div><span class="pill mt-2">Email verified</span></div>
+            </div>
+            <button class="btn-trip" type="button" onclick="go('edit-profile')"><i class="bi bi-pencil"></i> Edit Information</button>
+          </div>
+        </section>
+
+        <div class="grid2">
+          <section class="cardx">
+            <h5>A little about you</h5>
+            <div class="info-pair">
+              <div><small>First name</small><strong>${escapeHtml(profile.first)}</strong></div>
+              <div><small>Last name</small><strong>${escapeHtml(profile.last)}</strong></div>
+              <div><small>Date of birth</small><strong>${escapeHtml(profile.dob)}</strong></div>
+              <div><small>Nationality</small><strong>${escapeHtml(profile.nationality)}</strong></div>
+            </div>
+            <hr>
+            <small class="muted">Member since</small>
+            <div class="field-value">14 March 2026</div>
+            <small class="muted d-block mt-3">Account ID</small>
+            <strong>WW-C-260314</strong>
+          </section>
+          <section class="cardx">
+            <h5>Let’s stay in touch</h5>
+            <div class="field-block"><small class="muted">Email address</small><div class="field-value">${escapeHtml(profile.email)}</div></div>
+            <div class="field-block"><small class="muted">Phone number</small><div class="field-value">${escapeHtml(profile.phone)}</div></div>
+            <hr>
+            <div class="field-block"><small class="muted">Address</small><div class="field-value">${escapeHtml(profile.street)}, ${escapeHtml(profile.city)}</div></div>
+            <small class="muted">Country</small>
+            <div class="field-value">${escapeHtml(profile.country)}</div>
+          </section>
+        </div>
+
+        <!-- Gemini AI Travel Assistant Card -->
+        <section class="cardx mt-3" id="geminiAssistantCard">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+            <h5 class="mb-0"><i class="bi bi-stars text-danger me-2"></i>Gemini AI Travel Assistant</h5>
+            <span class="pill"><i class="bi bi-cpu"></i> Context-Aware · Gemini 1.5 Flash</span>
+          </div>
+          <p class="muted tiny mb-3">Ask personalized questions powered by your live bookings, past trips, and pending refund updates.</p>
+
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <button type="button" class="ai-chip" onclick="useAiPrompt('Give me a packing and prep checklist for Bali Slow Escape.')">Prep for Bali Slow Escape</button>
+            <button type="button" class="ai-chip" onclick="useAiPrompt('What is my current pending refund amount and status?')">Pending refund status</button>
+            <button type="button" class="ai-chip" onclick="useAiPrompt('Suggest a next destination based on my Kyoto Autumn Trail trip.')">Next trip after Kyoto</button>
+          </div>
+
+          <form id="aiAssistantForm" onsubmit="askGeminiAssistant(event)">
+            <div class="row g-2 align-items-center mb-2">
+              <div class="col-md-4">
+                <input type="password" id="geminiApiKey" class="form-control" placeholder="Gemini API Key (saved locally)" value="${escapeHtml(savedKey)}" oninput="localStorage.setItem('tp_gemini_key', this.value.trim())">
+              </div>
+              <div class="col-md-6">
+                <input type="text" id="aiQuestionInput" class="form-control" placeholder="Ask about your trips, refunds, or itinerary ideas..." required>
+              </div>
+              <div class="col-md-2 d-grid">
+                <button type="submit" class="btn-trip" id="aiAskBtn">
+                  <i class="bi bi-send"></i> Ask
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <div id="aiResponseBox" class="mt-3 hide"></div>
+        </section>
+
+        <section class="cardx mt-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div>
+            <h5 class="mb-1">Your account security</h5>
+            <strong><i class="bi bi-shield-check me-2"></i>Password</strong>
+            <div class="muted tiny">Last updated 14 March 2026 · Your password is never displayed.</div>
+          </div>
+          <button class="btn-outline-trip" type="button" onclick="go('password')"><i class="bi bi-key"></i> Change Password</button>
+        </section>
+      `);
+    }
+
+    function useAiPrompt(text) {
+      const inp = document.getElementById('aiQuestionInput');
+      if (inp) {
+        inp.value = text;
+        inp.focus();
+      }
+    }
+
+    async function askGeminiAssistant(e) {
+      e.preventDefault();
+      const question = document.getElementById('aiQuestionInput').value.trim();
+      const apiKeyInput = document.getElementById('geminiApiKey');
+      const apiKey = (apiKeyInput ? apiKeyInput.value : localStorage.getItem('tp_gemini_key') || '').trim();
+      const outBox = document.getElementById('aiResponseBox');
+      const btn = document.getElementById('aiAskBtn');
+
+      if (!question) return;
+      if (!apiKey) {
+        outBox.classList.remove('hide');
+        outBox.innerHTML = `<div class="alert-soft"><i class="bi bi-key me-2"></i>Please enter your Gemini API key above to run a live AI query. Your personalized profile and trip context is ready.</div>`;
+        return;
+      }
+
+      localStorage.setItem('tp_gemini_key', apiKey);
+
+      // Context Injection from localStorage
+      const liveProfile = JSON.parse(localStorage.getItem('tp_profile') || 'null') || profile;
+      const liveBookings = JSON.parse(localStorage.getItem('tp_bookings') || 'null') || bookings;
+      const liveRefunds = JSON.parse(localStorage.getItem('tp_refunds') || 'null') || refunds;
+
+      const travellerName = `${liveProfile.first} ${liveProfile.last}`.trim() || fullName();
+      const activeUpcoming = liveBookings.filter(b => b.status === 'Confirmed');
+      const completedTrips = liveBookings.filter(b => b.status === 'Completed');
+      const pendingRefunds = liveRefunds.filter(r => r.status === 'Processing');
+
+      const userContext = `
+Traveller Name: ${travellerName}
+Email: ${liveProfile.email}
+City: ${liveProfile.city}, ${liveProfile.country}
+Active Upcoming Bookings: ${activeUpcoming.map(b => `${b.name} (${b.dest}, ${b.dates}, ${b.travellers || 2} travellers, ₹${b.amount})`).join('; ') || 'None'}
+Completed Trips: ${completedTrips.map(b => `${b.name} (${b.dest}, ${b.dates})`).join('; ') || 'None'}
+Pending Refunds: ${pendingRefunds.map(r => `${r.id} for ${r.name} (₹${r.amount} via ${r.method}, requested ${r.requested})`).join('; ') || 'None'}
+      `.trim();
+
+      const promptText = `You are TripTora's friendly AI travel assistant. Answer concisely and helpfully using only this traveller context:\n\n${userContext}\n\nTraveller Question: ${question}`;
+
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading`;
+      outBox.classList.remove('hide');
+      outBox.innerHTML = `<div class="ai-reply-box"><i class="bi bi-hourglass-split me-2"></i>Preparing response for ${escapeHtml(travellerName)}...</div>`;
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: promptText }] }]
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data?.error?.message || `Gemini API returned HTTP ${res.status}`);
+        }
+
+        const aiText = data?.candidates?.[0]?.content?.parts?.map(p => p.text).join('\n') || 'No response generated.';
+        outBox.innerHTML = `
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="pill"><i class="bi bi-check-circle"></i> Personalized for ${escapeHtml(travellerName)}</span>
+          </div>
+          <div class="ai-reply-box">${escapeHtml(aiText)}</div>
+        `;
+      } catch (err) {
+        outBox.innerHTML = `<div class="pill red d-flex p-3"><i class="bi bi-exclamation-triangle me-2"></i>Unable to reach Gemini API: ${escapeHtml(err.message)}</div>`;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="bi bi-send"></i> Ask`;
+      }
+    }
+
+    function renderEditProfile() {
+      shell('profile', `
+        ${heading('YOUR TRAVEL COMPANION / 08 / MY PROFILE / EDIT INFORMATION', 'Make yourself at home.', 'Keep your personal information ready for your next adventure.')}
+        <form class="cardx" id="profileForm" onsubmit="saveProfile(event)">
+          <h5>Edit Information</h5>
+          <div class="d-flex align-items-center gap-3 pb-3 border-bottom mb-3">
+            <div class="avatar" style="width:64px;height:64px">${profile.photo ? `<img src="${profile.photo}" alt="Avatar">` : initials()}</div>
+            <div class="flex-grow-1">
+              <strong>Your profile photo</strong>
+              <div class="muted tiny">JPG or PNG · Up to 5 MB.</div>
+            </div>
+            <label class="btn-outline-trip mb-0">
+              <i class="bi bi-upload"></i> Upload Photo
+              <input type="file" accept="image/jpeg,image/png" class="d-none" onchange="uploadPhoto(event)">
+            </label>
+          </div>
+          <h5 class="fs-6">Personal information</h5>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label">First name *</label><input required class="form-control" name="first" value="${escapeHtml(profile.first)}"></div>
+            <div class="col-md-6"><label class="form-label">Last name *</label><input required class="form-control" name="last" value="${escapeHtml(profile.last)}"></div>
+            <div class="col-md-6"><label class="form-label">Date of birth</label><input class="form-control" name="dob" value="${escapeHtml(profile.dob)}" placeholder="DD/MM/YYYY"></div>
+            <div class="col-md-6"><label class="form-label">Nationality</label><input class="form-control" name="nationality" value="${escapeHtml(profile.nationality)}"></div>
+          </div>
+          <hr>
+          <h5 class="fs-6">Contact information</h5>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label">Email address *</label><input required type="email" class="form-control" name="email" value="${escapeHtml(profile.email)}"></div>
+            <div class="col-md-6"><label class="form-label">Phone number *</label><input required pattern="\\+?[0-9 ()-]{8,20}" class="form-control" name="phone" value="${escapeHtml(profile.phone)}"></div>
+            <div class="col-12"><label class="form-label">Street address</label><input class="form-control" name="street" value="${escapeHtml(profile.street)}"></div>
+            <div class="col-md-6"><label class="form-label">City</label><input class="form-control" name="city" value="${escapeHtml(profile.city)}"></div>
+            <div class="col-md-6"><label class="form-label">Country</label><input class="form-control" name="country" value="${escapeHtml(profile.country)}"></div>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <small class="muted">* Required information</small>
+            <div>
+              <button type="button" class="btn-outline-trip" onclick="go('profile')">Cancel</button>
+              <button type="submit" class="btn-trip">Save</button>
+            </div>
+          </div>
+        </form>
+      `);
+    }
+
+    function saveProfile(e) {
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const email = String(f.get('email') || '').trim();
+      if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+        notify('Please enter a valid email address.');
+        return;
+      }
+      profile = {
+        ...profile,
+        first: String(f.get('first') || '').trim(),
+        last: String(f.get('last') || '').trim(),
+        dob: String(f.get('dob') || ''),
+        nationality: String(f.get('nationality') || ''),
+        email,
+        phone: String(f.get('phone') || '').trim(),
+        street: String(f.get('street') || ''),
+        city: String(f.get('city') || ''),
+        country: String(f.get('country') || '')
+      };
+      save();
+      try {
+        const sess = JSON.parse(localStorage.getItem('triptoraUser') || 'null');
+        if (sess) {
+          sess.accountEmail = sess.accountEmail || sess.email;
+          sess.username = fullName();
+          sess.email = profile.email;
+          localStorage.setItem('triptoraUser', JSON.stringify(sess));
+        }
+      } catch (err) {}
+      const navName = document.querySelector('.tt-user-name');
+      if (navName) navName.textContent = fullName();
+      notify('Your information has been saved.');
+      go('profile');
+    }
+
+    function uploadPhoto(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (!['image/jpeg', 'image/png'].includes(file.type)) {
+        notify('Please choose a JPG or PNG image.');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        notify('Photo must be 5 MB or smaller.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        uploadedPhoto = reader.result;
+        modal(`
+          <div class="modal-header">
+            <h5 class="modal-title">Adjust your picture</h5>
+            <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <p class="muted">Preview your profile photo before saving.</p>
+            <img id="photoPreview" src="${uploadedPhoto}" alt="Preview" style="width:190px;height:190px;border-radius:50%;object-fit:cover;border:5px solid #FFF0E8;margin:0 auto;">
+            <div class="mt-3">
+              <label class="form-label">Zoom</label>
+              <input id="photoZoom" type="range" class="form-range" min="80" max="150" value="100" oninput="document.getElementById('photoPreview').style.transform='scale('+(this.value/100)+')'">
+            </div>
+            <small class="muted">${escapeHtml(file.name)} · ${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-outline-trip" data-bs-dismiss="modal" type="button">Cancel</button>
+            <button class="btn-trip" type="button" onclick="savePhoto()">Save picture</button>
+          </div>
+        `);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function savePhoto() {
+      profile.photo = uploadedPhoto;
+      save();
+      const navAvatar = document.querySelector('.tt-user-avatar');
+      if (navAvatar && profile.photo) {
+        navAvatar.innerHTML = `<img src="${profile.photo}" alt="${escapeHtml(fullName())}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+      }
+      closeModalSafe();
+      notify('Profile picture updated.');
+      go('edit-profile');
+    }
+
+    function renderPassword() {
+      shell('profile', `
+        ${heading('YOUR TRAVEL COMPANION / 09 / MY PROFILE / CHANGE PASSWORD', 'Keep your adventures secure.', 'Choose a strong password for your TripTora account.')}
+        <div class="detail-grid">
+          <form class="cardx" onsubmit="changePassword(event)">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Change Password</h5>
+              <span class="pill">Password active</span>
+            </div>
+            <small class="muted">Last updated 14 March 2026</small>
+            <hr>
+            <div class="mb-3">
+              <label class="form-label">Current password *</label>
+              <div class="input-group">
+                <input required type="password" id="currentPass" class="form-control">
+                <button class="btn-outline-trip" type="button" onclick="togglePass('currentPass')"><i class="bi bi-eye"></i></button>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">New password *</label>
+              <div class="input-group">
+                <input required type="password" id="newPass" class="form-control" oninput="passwordStrength()">
+                <button class="btn-outline-trip" type="button" onclick="togglePass('newPass')"><i class="bi bi-eye"></i></button>
+              </div>
+              <div class="progress mt-2" style="height:5px"><div id="passBar" class="progress-bar" style="width:0%"></div></div>
+              <small id="passHint" class="muted tiny">At least 12 characters, uppercase and lowercase letters, one number and one special character.</small>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Confirm new password *</label>
+              <input required type="password" id="confirmPass" class="form-control">
+            </div>
+            <div class="alert-success-soft tiny mb-3">Use a unique password you haven’t used elsewhere.</div>
+            <div class="text-end">
+              <button type="button" class="btn-outline-trip" onclick="go('profile')">Cancel</button>
+              <button type="submit" class="btn-trip">Update Password</button>
+            </div>
+          </form>
+          <section class="cardx">
+            <h5>A small step for peace of mind</h5>
+            <i class="bi bi-shield-check fs-1 text-danger"></i>
+            <p class="muted mt-3">Use a unique password you haven’t used elsewhere. A password manager can help keep it safe.</p>
+            <hr>
+            <p class="muted">TripTora will never ask you to share your password by email or phone.</p>
+            <strong class="text-danger">Current state: ready to update.</strong>
+          </section>
+        </div>
+      `);
+    }
+
+    function passwordStrength() {
+      const p = document.getElementById('newPass').value;
+      const score = [p.length >= 12, /[A-Z]/.test(p) && /[a-z]/.test(p), /[0-9]/.test(p), /[^A-Za-z0-9]/.test(p)].filter(Boolean).length;
+      document.getElementById('passBar').style.width = (score * 25) + '%';
+      document.getElementById('passHint').textContent = score === 4 ? 'Strong password' : `Password strength: ${score}/4 requirements met`;
+    }
+
+    function changePassword(e) {
+      e.preventDefault();
+      const p = document.getElementById('newPass').value;
+      const c = document.getElementById('confirmPass').value;
+      if (p.length < 12 || !/[A-Z]/.test(p) || !/[a-z]/.test(p) || !/[0-9]/.test(p) || !/[^A-Za-z0-9]/.test(p)) {
+        notify('Password must meet all four strength requirements.');
+        return;
+      }
+      if (p !== c) {
+        notify('New password and confirmation do not match.');
+        return;
+      }
+      if (p === document.getElementById('currentPass').value) {
+        notify('Choose a new password different from your current one.');
+        return;
+      }
+      localStorage.setItem('tp_password_updated', new Date().toISOString());
+      notify('Password updated successfully.');
+      go('profile');
+    }
+
+    function togglePass(id) {
+      const x = document.getElementById(id);
+      if (x) x.type = x.type === 'password' ? 'text' : 'password';
+    }
+
+    function showDeleteAccountModal() {
+      const session = window.getTripToraUser ? window.getTripToraUser() : null;
+      const isAdmin = session && session.role === 'admin';
+      const accountEmail = (session && (session.accountEmail || session.email)) || profile.email || '';
+      const displayName = fullName() || (session && session.username) || 'TripTora User';
+
+      if (isAdmin && accountEmail.toLowerCase() === 'admin@triptora.com') {
+        modal(`
+          <div class="modal-header">
+            <h5 class="modal-title text-danger"><i class="bi bi-shield-lock me-2"></i>Administrator Account Protected</h5>
+            <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="alert-soft">
+              Built-in administrator accounts (<strong>${escapeHtml(accountEmail)}</strong>) cannot be deleted.
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-trip" data-bs-dismiss="modal" type="button">Close</button>
+          </div>
+        `);
+        return;
+      }
+
+      modal(`
+        <div class="modal-header">
+          <h5 class="modal-title" style="color:#C0392B"><i class="bi bi-exclamation-triangle-fill me-2"></i>Delete Your Account?</h5>
+          <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert-danger-soft mb-3">
+            <strong>This action is permanent and cannot be undone.</strong>
+            <div class="tiny mt-1">Deleting your account will permanently remove your login credentials, personal profile details, and active session.</div>
+          </div>
+          <div class="d-flex justify-content-between my-2"><span class="muted">Account holder</span><strong>${escapeHtml(displayName)}</strong></div>
+          <div class="d-flex justify-content-between my-2"><span class="muted">Registered email</span><strong>${escapeHtml(accountEmail || '—')}</strong></div>
+          <label class="delete-confirm-box" for="confirmDeleteCheck">
+            <input type="checkbox" id="confirmDeleteCheck" onchange="clearDeleteConfirmError()">
+            <span class="tiny">I understand that my TripTora account will be permanently deleted and I will need to register again to use TripTora.</span>
+          </label>
+          <div id="deleteConfirmErr" class="tiny mt-2 hide" style="color:#C0392B;font-weight:600;"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-outline-trip" data-bs-dismiss="modal" type="button">Keep Account</button>
+          <button class="btn-danger-trip" id="confirmDeleteAccountBtn" type="button" onclick="confirmDeleteAccount()">
+            <i class="bi bi-trash3"></i> Delete Account
+          </button>
+        </div>
+      `);
+    }
+
+    function clearDeleteConfirmError() {
+      const errEl = document.getElementById('deleteConfirmErr');
+      if (errEl) {
+        errEl.textContent = '';
+        errEl.classList.add('hide');
+      }
+    }
+
+    function confirmDeleteAccount() {
+      const checkEl = document.getElementById('confirmDeleteCheck');
+      const errEl = document.getElementById('deleteConfirmErr');
+      if (!checkEl || !checkEl.checked) {
+        if (errEl) {
+          errEl.textContent = 'Please tick the confirmation box above to permanently delete your account.';
+          errEl.classList.remove('hide');
+        }
+        if (checkEl) checkEl.focus();
+        return;
+      }
+
+      const btn = document.getElementById('confirmDeleteAccountBtn');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Deleting...';
+      }
+
+      const result = window.deleteTripToraAccount
+        ? window.deleteTripToraAccount()
+        : { ok: false, message: 'Account deletion service unavailable.' };
+
+      if (!result || !result.ok) {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-trash3"></i> Delete Account';
+        }
+        if (errEl) {
+          errEl.textContent = (result && result.message) || 'Unable to delete account.';
+          errEl.classList.remove('hide');
+        }
+        return;
+      }
+
+      closeModalSafe();
+    }
+
+    function modal(content) {
+      const body = document.getElementById('modalBody');
+      const el = document.getElementById('actionModal');
+      body.innerHTML = content;
+      if (window.bootstrap && bootstrap.Modal) {
+        bootstrap.Modal.getOrCreateInstance(el).show();
+      } else {
+        el.classList.add('show');
+        el.style.display = 'block';
+        el.style.background = 'rgba(0,0,0,0.45)';
+        body.querySelectorAll('[data-bs-dismiss="modal"]').forEach(btn => {
+          btn.onclick = closeModalSafe;
+        });
+      }
+    }
+
+    function closeModalSafe() {
+      const el = document.getElementById('actionModal');
+      if (window.bootstrap && bootstrap.Modal) {
+        const inst = bootstrap.Modal.getInstance(el);
+        if (inst) inst.hide();
+      } else {
+        el.classList.remove('show');
+        el.style.display = 'none';
+      }
+    }
+
+    window.addEventListener('hashchange', render);
+    window.addEventListener('storage', render);
+    window.addEventListener('DOMContentLoaded', render);
+  </script>
+</body>
+</html>

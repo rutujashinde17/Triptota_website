@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flight Results · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <div class="band">
+    <div class="wrap bandin">
+      <div>
+        <small>Flights</small>
+        <h1 id="title"></h1>
+      </div>
+      <div class="sum">
+        <b id="sr"></b>
+        <span id="sd"></span>
+        <span id="sc"></span>
+        <button class="btn btn--light" id="mod" type="button" aria-expanded="false">Modify Search</button>
+      </div>
+    </div>
+  </div>
+
+  <style>.mp{padding:16px;margin-top:16px}</style>
+  <div class="wrap">
+    <form class="card mp" id="mp" hidden novalidate>
+      <div class="sgrid">
+        <div class="f"><label for="mfrom">From</label><select id="mfrom"></select><small id="mfromA"></small></div>
+        <button type="button" class="swap" id="mswap" aria-label="Swap cities">⇄</button>
+        <div class="f"><label for="mto">To</label><select id="mto"></select><small id="mtoA"></small></div>
+        <div class="f"><label for="mdate">Departure</label><input type="date" id="mdate"><small id="mday"></small></div>
+        <div class="f"><label for="mcls">Travellers &amp; Class</label><select id="mcls"><option value="Economy">Economy</option><option value="Premium Economy">Premium Economy</option><option value="Business">Business</option></select><small>Add passengers by choosing seats</small></div>
+        <button class="sbtn" type="submit">Update Search</button>
+      </div>
+      <p class="err" id="merr"></p>
+    </form>
+  </div>
+
+  <main class="wrap page">
+    <div class="dates" id="dates" role="tablist"></div>
+    <p class="note">Airfare per adult · fares change by date</p>
+    <div class="layout">
+      <aside class="card filters" aria-label="Filters">
+        <div class="fhead"><h2>Filters</h2><button type="button" id="reset" class="link">Reset all</button></div>
+        <fieldset><legend>Stops</legend>
+          <label><input type="checkbox" name="stops" value="0" autocomplete="off"> Non-Stop</label>
+          <label><input type="checkbox" name="stops" value="1" autocomplete="off"> 1 stop</label>
+          <label><input type="checkbox" name="stops" value="2" autocomplete="off"> 2+ stops</label>
+        </fieldset>
+        <fieldset><legend>Airlines</legend>
+          <label><input type="checkbox" name="airline" value="IndiGo" autocomplete="off"> IndiGo</label>
+          <label><input type="checkbox" name="airline" value="Air India" autocomplete="off"> Air India</label>
+          <label><input type="checkbox" name="airline" value="Akasa Air" autocomplete="off"> Akasa Air</label>
+        </fieldset>
+        <fieldset><legend>Departure</legend>
+          <label><input type="checkbox" name="dep" value="early" autocomplete="off"> Before 06:00</label>
+          <label><input type="checkbox" name="dep" value="morning" autocomplete="off"> 06:00–12:00</label>
+          <label><input type="checkbox" name="dep" value="afternoon" autocomplete="off"> 12:00–18:00</label>
+          <label><input type="checkbox" name="dep" value="evening" autocomplete="off"> After 18:00</label>
+        </fieldset>
+        <fieldset><legend>Price range</legend>
+          <input type="range" id="price" min="3000" max="20000" step="100" value="20000" autocomplete="off" aria-label="Maximum price">
+          <output id="priceOut"></output>
+        </fieldset>
+      </aside>
+      <section aria-live="polite">
+        <div class="sorts" id="sorts">
+          <span>Sort by</span>
+          <button class="sort on" data-s="price">Cheapest</button>
+          <button class="sort" data-s="dur">Fastest</button>
+          <button class="sort" data-s="dep">Earliest</button>
+        </div>
+        <p class="count" id="count"></p>
+        <div id="list"></div>
+        <p class="note">All times are local. Review fare rules before booking.</p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../../js/common.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/flights-api.js"></script>
+  <script src="js/results.js"></script>
+</body>
+</html>

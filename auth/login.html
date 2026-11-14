@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .auth-page {
+      min-height: calc(100vh - var(--nav-height) - 100px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 920px;
+      background: #fff;
+      border: 1px solid var(--peach);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      overflow: hidden;
+    }
+    .auth-banner {
+      background: linear-gradient(135deg, var(--maroon), var(--orange));
+      color: #fff;
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .auth-banner::after {
+      content: '';
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 140px;
+      height: 140px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+    .banner-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .banner-logo img {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+    }
+    .banner-logo span {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .banner-quote h2 {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .banner-quote p {
+      font-size: 14px;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    .banner-foot {
+      font-size: 11px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      opacity: 0.8;
+      text-transform: uppercase;
+    }
+    .auth-form-wrap {
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .auth-head {
+      margin-bottom: 28px;
+    }
+    .auth-head small {
+      color: var(--orange);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .auth-head h3 {
+      font-size: 26px;
+      color: var(--maroon);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .auth-head p {
+      color: var(--text-muted);
+      font-size: 13.5px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--bean);
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      background: #fafafa;
+      transition: border 0.2s;
+    }
+    .form-group input:focus {
+      border-color: var(--orange);
+      background: #fff;
+      outline: none;
+    }
+    .form-group input.bad {
+      border-color: var(--red);
+    }
+    .form-err {
+      color: var(--red);
+      font-size: 11.5px;
+      font-weight: 500;
+      display: block;
+      margin-top: 4px;
+      min-height: 16px;
+    }
+    .form-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0 24px;
+      font-size: 13px;
+    }
+    .form-footer a {
+      color: var(--maroon);
+      font-weight: 500;
+    }
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+    .switch-link {
+      text-align: center;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 20px;
+    }
+    .switch-link a {
+      color: var(--orange);
+      font-weight: 600;
+    }
+    .role-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding: 5px;
+      background: var(--cream);
+      border: 1.5px solid var(--peach);
+      border-radius: 14px;
+    }
+    .role-btn {
+      border: 0;
+      background: transparent;
+      color: var(--maroon);
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 0.2s ease;
+    }
+    .role-btn:hover {
+      background: var(--peach-soft);
+    }
+    .role-btn.active {
+      background: linear-gradient(135deg, var(--maroon), var(--orange));
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(149, 36, 31, 0.2);
+    }
+    @media (max-width: 768px) {
+      .auth-card {
+        grid-template-columns: 1fr;
+      }
+      .auth-banner {
+        display: none;
+      }
+      .auth-form-wrap {
+        padding: 32px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <main class="page-wrapper">
+    <div class="auth-page">
+      <div class="auth-card">
+        <div class="auth-banner">
+          <div class="banner-logo">
+            <img src="../assets/images/logo.jpeg" alt="TripTora" onerror="this.src='../assets/images/logo.png'">
+            <span>TripTora</span>
+          </div>
+          <div class="banner-quote">
+            <h2>Welcome back, explorer.</h2>
+            <p>Your saved itineraries, flight bookings, bus seats, and travel adventures are waiting for you.</p>
+          </div>
+          <div class="banner-foot">Discover · Dream · Depart</div>
+        </div>
+
+        <div class="auth-form-wrap">
+          <div class="role-switch" id="roleSwitch" role="tablist" aria-label="Choose Login Type">
+            <button type="button" class="role-btn active" data-role="user" role="tab" aria-selected="true">👤 User Login</button>
+            <button type="button" class="role-btn" data-role="admin" role="tab" aria-selected="false">🛡️ Admin Login</button>
+          </div>
+
+          <div class="auth-head">
+            <small id="loginEyebrow">Your Journey Starts Here</small>
+            <h3 id="loginHeading">Sign in to TripTora</h3>
+            <p id="loginSubtitle">Access your bookings, profile and exclusive member deals.</p>
+          </div>
+
+          <form id="loginForm" novalidate autocomplete="off">
+            <div class="form-group">
+              <label for="lEmail">Email Address</label>
+              <input type="email" id="lEmail" placeholder="you@example.com" required autocomplete="off">
+              <small class="form-err" id="lEmailErr"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="lPass">Password</label>
+              <input type="password" id="lPass" placeholder="••••••••" required autocomplete="new-password">
+              <small class="form-err" id="lPassErr"></small>
+            </div>
+
+            <div class="form-footer" id="loginFormFooter">
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="checkbox" checked> Remember me
+              </label>
+              <a href="forgot-password.html" id="forgot">Forgot password?</a>
+            </div>
+
+            <div id="redirectNotice" style="display:none; margin-bottom:14px; padding:10px 12px; border-radius:8px; background:var(--peach-soft); border:1px solid var(--peach); color:var(--maroon); font-size:12.5px; font-weight:500;">
+              Please sign in to continue to your requested TripTora page.
+            </div>
+
+            <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-block btn-lg">Login as User →</button>
+
+           
+
+            <p class="switch-link" id="registerSwitchRow">
+              New to TripTora? <a href="register.html">Create Account / Register</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>
+

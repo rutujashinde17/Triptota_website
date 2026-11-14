@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booking Confirmed · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <main class="wrap page" style="margin-top: calc(var(--nav-height) + 10px);">
+    <section class="banner">
+      <span class="tick">✓</span>
+      <h1>Flight Booking Confirmed!</h1>
+      <p id="msg"></p>
+      <p class="pnr">PNR: <span id="pnr"></span> <button class="link" id="copy" type="button">⧉ Copy</button></p>
+    </section>
+    <div class="cols">
+      <div>
+        <section class="card pad">
+          <h2>Your flight</h2>
+          <p id="fl" class="big"></p>
+          <p class="muted" id="fl2"></p>
+          <hr>
+          <div class="rt">
+            <div class="time" id="dep"></div>
+            <div class="mid" id="dur"></div>
+            <div class="time" id="arr"></div>
+          </div>
+          <div class="rt">
+            <div>
+              <div class="red big" id="fc"></div>
+              <p id="fcity"></p>
+              <p class="muted" id="fap"></p>
+            </div>
+            <span></span>
+            <div>
+              <div class="red big" id="tc"></div>
+              <p id="tcity"></p>
+              <p class="muted" id="tap"></p>
+            </div>
+          </div>
+          <hr>
+          <p id="cab"></p>
+        </section>
+        <section class="card pad">
+          <h2>Passenger &amp; selected add-ons</h2>
+          <div id="pl"></div>
+          <div id="adds"></div>
+        </section>
+        <section class="card pad">
+          <h2>Booking timeline</h2>
+          <div id="tl" class="tl"></div>
+        </section>
+      </div>
+      <div class="side">
+        <aside class="card pad">
+          <h2>Ready for your journey</h2>
+          <button class="btn btn--primary btn--block" id="dl">Download E-Ticket &amp; Invoice (PDF)</button>
+          <button class="btn btn--block" disabled>Print Boarding Pass</button>
+          <p class="note">Boarding pass is available after airline check-in.</p>
+          <hr>
+          <p><b>Before you fly</b></p>
+          <p id="adv"></p>
+          <p>Your e-ticket and invoice have been sent to your registered email.</p>
+          <hr>
+          <a class="btn btn--block" href="results.html">Book another flight</a>
+        </aside>
+        <aside class="card pad">
+          <h2>Payment receipt</h2>
+          <div id="rc"></div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../../js/common.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/confirmation.js"></script>
+</body>
+</html>

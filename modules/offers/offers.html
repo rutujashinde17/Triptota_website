@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Offers & Deals · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/common.css">
+  <style>
+    .offers-hero {
+      background: linear-gradient(135deg, var(--maroon), var(--orange));
+      color: #fff;
+      padding: 44px 0 36px;
+      margin-bottom: 30px;
+    }
+    .offers-hero h1 {
+      font-size: clamp(30px, 4vw, 42px);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .offers-hero p {
+      font-size: 16px;
+      opacity: 0.95;
+      max-width: 650px;
+    }
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .offer-box {
+      background: #fff;
+      border: 1px solid var(--peach);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .offer-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: var(--orange);
+    }
+    .offer-box:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+    .offer-tag {
+      display: inline-block;
+      background: var(--cream);
+      border: 1px solid var(--peach);
+      color: var(--maroon);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .offer-box h3 {
+      font-size: 19px;
+      color: var(--maroon);
+      margin-bottom: 8px;
+    }
+    .offer-box p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .coupon-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px dashed var(--peach);
+      padding-top: 16px;
+    }
+    .coupon-code {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--yellow);
+      color: var(--maroon);
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13.5px;
+      letter-spacing: 0.5px;
+      border: 1px dashed var(--maroon);
+    }
+    .btn-copy {
+      background: var(--cream);
+      border: 1px solid var(--peach);
+      color: var(--maroon);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-copy:hover {
+      background: var(--maroon);
+      color: #fff;
+      border-color: var(--maroon);
+    }
+
+    @media (max-width: 992px) {
+      .offers-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .offers-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <main class="page-wrapper" style="padding-top: var(--nav-height);">
+    <!-- HERO -->
+    <div class="offers-hero">
+      <div class="container container-wide">
+        <h1>Exclusive Deals & Promotional Vouchers</h1>
+        <p>Grab handpicked discounts, bank cashbacks, and special voucher codes for your flights, bus trips, and holiday bookings.</p>
+      </div>
+    </div>
+
+    <div class="container container-wide">
+      <div class="offers-grid">
+        <!-- FIRSTFLY -->
+        <div class="offer-box">
+          <div>
+            <span class="offer-tag">Flight Special</span>
+            <h3>Save ₹1,500 on Domestic Flights</h3>
+            <p>Valid on all non-stop domestic routes with IndiGo, Air India, and Akasa Air. No minimum booking amount required.</p>
+          </div>
+          <div class="coupon-action-row">
+            <span class="coupon-code">FIRSTFLY</span>
+            <button class="btn-copy" onclick="copyCode('FIRSTFLY')">Copy Code</button>
+          </div>
+        </div>
+
+        <!-- GETAWAY20 -->
+        <div class="offer-box">
+          <div>
+            <span class="offer-tag">Holiday Tours</span>
+            <h3>Up to 20% Off Holiday Packages</h3>
+            <p>Save up to ₹8,000 on curated international packages for Bali, Dubai, Paris, and Maldives. Includes hotel stays.</p>
+          </div>
+          <div class="coupon-action-row">
+            <span class="coupon-code">GETAWAY20</span>
+            <button class="btn-copy" onclick="copyCode('GETAWAY20')">Copy Code</button>
+          </div>
+        </div>
+
+        <!-- TRIPBUS -->
+        <div class="offer-box">
+          <div>
+            <span class="offer-tag">Bus Booking</span>
+            <h3>Flat ₹100 Off Bus Tickets</h3>
+            <p>Instant deduction on AC Sleeper and Electric coaches on all major inter-city routes with Zingbus and IntrCity.</p>
+          </div>
+          <div class="coupon-action-row">
+            <span class="coupon-code">TRIPBUS</span>
+            <button class="btn-copy" onclick="copyCode('TRIPBUS')">Copy Code</button>
+          </div>
+        </div>
+
+        <!-- TRIPBANK -->
+        <div class="offer-box">
+          <div>
+            <span class="offer-tag">Bank Card Offer</span>
+            <h3>10% Instant Bank Discount</h3>
+            <p>Get up to ₹2,500 instant discount on payment via HDFC, ICICI, or SBI credit and debit cards on any checkout.</p>
+          </div>
+          <div class="coupon-action-row">
+            <span class="coupon-code">TRIPBANK</span>
+            <button class="btn-copy" onclick="copyCode('TRIPBANK')">Copy Code</button>
+          </div>
+        </div>
+
+        <!-- BALISLOW -->
+        <div class="offer-box">
+          <div>
+            <span class="offer-tag">Early Bird</span>
+            <h3>Free Pool Villa Upgrade in Bali</h3>
+            <p>Book your Bali package 30 days in advance and get an automatic free upgrade to a private plunge pool villa.</p>
+          </div>
+          <div class="coupon-action-row">
+            <span class="coupon-code">BALISLOW</span>
+            <button class="btn-copy" onclick="copyCode('BALISLOW')">Copy Code</button>
+          </div>
+        </div>
+
+        <!-- WEEKEND -->
+        <div class="offer-box">
+          <div>
+            <span class="offer-tag">Weekend Getaway</span>
+            <h3>₹1,000 Off on Weekend Escapes</h3>
+            <p>Applicable on all Goa, Jaipur, and Manali hotel packages booked for Friday to Monday travel dates.</p>
+          </div>
+          <div class="coupon-action-row">
+            <span class="coupon-code">WEEKEND</span>
+            <button class="btn-copy" onclick="copyCode('WEEKEND')">Copy Code</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANNER CTA -->
+      <div style="background:var(--cream); border:1px solid var(--peach); border-radius:18px; padding:32px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:50px;">
+        <div>
+          <h3 style="color:var(--maroon); font-size:22px; margin-bottom:4px;">Have a custom corporate or group trip?</h3>
+          <p style="color:var(--text-muted); font-size:14px;">Contact our group desk for bulk discounts and customized itineraries.</p>
+        </div>
+        <a href="../enquiry/enquiry.html" class="btn btn-primary btn-lg">Submit Group Enquiry →</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../../js/common.js"></script>
+  <script>
+    function copyCode(code) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(() => {
+          if (window.ttToast) {
+            window.ttToast("✓ Promo code " + code + " copied to clipboard!");
+          } else {
+            alert("Copied: " + code);
+          }
+        });
+      } else {
+        if (window.ttToast) {
+          window.ttToast("Promo code: " + code);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
+

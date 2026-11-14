@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <main class="page-wrapper">
+    <div class="container container-wide">
+      <!-- HERO SLIDER -->
+      <section class="hero-section">
+        <div class="slider-box" id="heroSlider">
+          <div class="slide-item active" style="background-image: url('../assets/images/bali.jpg');"></div>
+          <div class="slide-item" style="background-image: url('../assets/images/switzerland.jpg');"></div>
+          <div class="slide-item" style="background-image: url('../assets/images/maldives.jpg');"></div>
+          <div class="slide-item" style="background-image: url('../assets/images/dubai.jpg');"></div>
+          <div class="slide-item" style="background-image: url('../assets/images/paris.jpg');"></div>
+          <div class="slide-overlay"></div>
+
+          <div class="hero-content">
+            <span class="hero-tag">A LITTLE ESCAPE · A LOT TO DISCOVER</span>
+            <h1>Big little moments.<br>Beautiful new places.</h1>
+            <p>From spontaneous weekend getaways to once-in-a-lifetime journeys. Find your kind of somewhere with TripTora.</p>
+          </div>
+
+          <div class="hero-offer-card">
+            <small>THE BALI EDIT</small>
+            <strong>Save up to 20%</strong>
+            <span>On selected November & December departures</span>
+          </div>
+
+          <button class="slide-arrow prev" id="slidePrev">&#10094;</button>
+          <button class="slide-arrow next" id="slideNext">&#10095;</button>
+          <div class="slide-dots" id="slideDots"></div>
+        </div>
+      </section>
+
+      <!-- SEARCH PANEL -->
+      <section class="search-panel">
+        <div class="search-mode-bar" id="ttSearchModeBar" role="tablist" aria-label="Choose trip type">
+          <button type="button" class="search-mode-pill active" data-mode="flight" role="tab" aria-selected="true">✈️ Flights</button>
+          <button type="button" class="search-mode-pill" data-mode="bus" role="tab" aria-selected="false">🚌 Bus</button>
+        </div>
+        <form id="quickSearchForm">
+          <div class="search-row">
+            <div class="search-group">
+              <label for="srcCity">From</label>
+              <input type="text" id="srcCity" value="Bengaluru (BLR)" list="ttFromList" autocomplete="off">
+            </div>
+            <button type="button" class="swap-btn" id="swapCityBtn" title="Swap cities">⇄</button>
+            <div class="search-group">
+              <label for="dstCity">To</label>
+              <input type="text" id="dstCity" value="Goa (GOI)" list="ttToList" autocomplete="off">
+            </div>
+            <div class="search-group">
+              <label for="travelDate">Departure Date</label>
+              <input type="date" id="travelDate" value="2026-11-20">
+            </div>
+            <div class="search-group" style="flex: 0 0 170px;">
+              <button type="submit" id="quickSearchSubmit" class="btn btn-primary btn-block btn-lg" style="height: 48px;">
+                Search Flights
+              </button>
+            </div>
+          </div>
+          <datalist id="ttFromList"></datalist>
+          <datalist id="ttToList"></datalist>
+        </form>
+
+        <div class="trust-bullets">
+          <span>✔ Handpicked Stays</span>
+          <span>✔ Transparent Pricing</span>
+          <span>✔ Instant E-Tickets</span>
+          <span>✔ 24/7 Dedicated Support</span>
+        </div>
+      </section>
+
+      <!-- DESTINATIONS SECTION (immediately after Search Bar) -->
+      <section class="section-wrap" id="tt-destinations-mount"></section>
+
+      <!-- 1. PACKAGES SECTION -->
+      <section class="section-wrap" id="packages">
+        <div class="sec-head-row">
+          <div>
+            <h2>Holiday Packages</h2>
+            <p>Popular destinations and complete itineraries already planned for you.</p>
+          </div>
+          <a href="../modules/packages/packages.html#/destinations/all" class="btn btn-outline">Explore All Packages →</a>
+        </div>
+
+        <div class="grid-3">
+          <div class="pkg-card">
+            <div class="pkg-thumb" style="background-image:url('../assets/images/bali.jpg');">
+              <span class="pkg-badge">Bestseller</span>
+            </div>
+            <div class="pkg-body">
+              <div>
+                <h3>Bali, Beautifully Slow</h3>
+                <small>5 Days / 4 Nights · 4-star stays</small>
+                <small>Hotel · Breakfast · Transfers · Guided Tours</small>
+                <small style="color:var(--orange); font-weight:600;">★ 4.9 (128 reviews)</small>
+              </div>
+              <div class="pkg-foot">
+                <div>
+                  <div class="pkg-price">₹32,500</div>
+                  <small>per person + taxes</small>
+                </div>
+                <a href="../modules/packages/packages.html?q=Bali&open=1" class="btn btn-outline btn-sm">View Package</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pkg-card">
+            <div class="pkg-thumb" style="background-image:url('../assets/images/paris.jpg');">
+              <span class="pkg-badge">Culture Lover's Pick</span>
+            </div>
+            <div class="pkg-body">
+              <div>
+                <h3>Paris, With Love</h3>
+                <small>6 Days / 5 Nights · 4-star stays</small>
+                <small>Hotel · Breakfast · Transfers · Louvre Pass</small>
+                <small style="color:var(--orange); font-weight:600;">★ 4.9 (94 reviews)</small>
+              </div>
+              <div class="pkg-foot">
+                <div>
+                  <div class="pkg-price">₹74,900</div>
+                  <small>per person + taxes</small>
+                </div>
+                <a href="../modules/packages/packages.html?q=Paris&open=1" class="btn btn-outline btn-sm">View Package</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="pkg-card">
+            <div class="pkg-thumb" style="background-image:url('../assets/images/dubai.jpg');">
+              <span class="pkg-badge">Family Favourite</span>
+            </div>
+            <div class="pkg-body">
+              <div>
+                <h3>Dubai Beyond the Skyline</h3>
+                <small>4 Days / 3 Nights · 4-star stays</small>
+                <small>Hotel · Breakfast · Desert Safari · Burj Khalifa</small>
+                <small style="color:var(--orange); font-weight:600;">★ 4.8 (112 reviews)</small>
+              </div>
+              <div class="pkg-foot">
+                <div>
+                  <div class="pkg-price">₹45,900</div>
+                  <small>per person + taxes</small>
+                </div>
+                <a href="../modules/packages/packages.html?q=Dubai&open=1" class="btn btn-outline btn-sm">View Package</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. OFFER SECTION -->
+      <section class="section-wrap" id="offers">
+        <div class="sec-head-row">
+          <div>
+            <h2>Special Offers & Vouchers</h2>
+            <p>Save more on flights, bus journeys and package tours.</p>
+          </div>
+          <a href="../modules/offers/offers.html" class="btn btn-outline">View All Deals →</a>
+        </div>
+
+        <div class="grid-3">
+          <div class="deal-card">
+            <div>
+              <span class="badge badge-yellow" style="margin-bottom:12px;">Domestic Flight</span>
+              <h3 style="font-size:18px; color:var(--maroon); margin-bottom:8px;">Save ₹1,500 on First Flight</h3>
+              <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:18px;">Applicable on all domestic non-stop routes for new users.</p>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="deal-code-badge">FIRSTFLY</span>
+              <a href="../modules/flight/results.html" style="color:var(--orange); font-weight:600; font-size:13.5px;">Book Now →</a>
+            </div>
+          </div>
+
+          <div class="deal-card">
+            <div>
+              <span class="badge badge-peach" style="margin-bottom:12px;">Holiday Special</span>
+              <h3 style="font-size:18px; color:var(--maroon); margin-bottom:8px;">Up to 20% Off Packages</h3>
+              <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:18px;">Book your dream Bali or Dubai escape with complete hotel stays.</p>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="deal-code-badge">GETAWAY20</span>
+              <a href="../modules/packages/packages.html" style="color:var(--orange); font-weight:600; font-size:13.5px;">View Packages →</a>
+            </div>
+          </div>
+
+          <div class="deal-card">
+            <div>
+              <span class="badge badge-green" style="margin-bottom:12px;">Bus Discount</span>
+              <h3 style="font-size:18px; color:var(--maroon); margin-bottom:8px;">Flat ₹100 Off Bus Bookings</h3>
+              <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:18px;">Instant deduction on sleeper and multi-axle electric buses.</p>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="deal-code-badge">TRIPBUS</span>
+              <a href="../modules/bus/bus.html" style="color:var(--orange); font-weight:600; font-size:13.5px;">Search Buses →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. FREQUENTLY ASKED QUESTIONS -->
+      <section class="section-wrap" id="tt-faq-mount" style="padding-bottom: 48px;"></section>
+    </div>
+
+    <!-- 4. RATINGS & REVIEWS (Full-width warm band matching photo) -->
+    <section class="ratings-band" id="tt-ratings-mount"></section>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../js/common.js"></script>
+</body>
+</html>
+

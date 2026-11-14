@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Passenger Details · TripTora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Universal Navbar mount -->
+  <header id="tt-navbar-mount"></header>
+
+  <main class="wrap page" style="margin-top: calc(var(--nav-height) + 10px);">
+    <p class="crumb">Step 3 / Traveller information</p>
+    <h1>Who’s flying?</h1>
+    <p class="muted">Review passenger details and your final fare before payment.</p>
+    <div class="trip" id="trip"></div>
+    <div class="cols">
+      <div>
+        <div id="pax"></div>
+        <section class="card pad">
+          <h2>Contact details</h2>
+          <p class="muted">Your e-ticket and flight updates will be sent here.</p>
+          <div class="grid2">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" autocomplete="email" placeholder="name@example.com">
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="mobile">+91 Mobile</label>
+              <input id="mobile" inputmode="numeric" maxlength="11" placeholder="98765 43210">
+              <small class="err"></small>
+            </div>
+          </div>
+        </section>
+      </div>
+      <aside class="card pad side">
+        <h2>Fare summary</h2>
+        <div id="sumA"></div>
+        <div id="cp"></div>
+        <div id="sumB"></div>
+        <button class="btn btn--primary btn--block" id="go">Proceed to Payment</button>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Universal Footer mount -->
+  <footer id="tt-footer-mount"></footer>
+
+  <script src="../../js/common.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/passenger.js"></script>
+</body>
+</html>
